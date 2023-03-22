@@ -40,3 +40,28 @@ class CardDeckTableView: UIView {
         ])
     }
 }
+
+extension CardDeckTableView: UITableViewDataSource {
+    
+    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+        return 10
+    }
+    
+    func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+        let cell = tableView.dequeueReusableCell(withIdentifier: "deckCell", for: indexPath)
+        var content = cell.defaultContentConfiguration()
+        content.text = "Hi There!"
+        cell.contentConfiguration = content
+        return cell
+    }
+}
+
+extension CardDecksTableViewController: UITableViewDelegate {
+    
+    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        tableView.deselectRow(at: indexPath, animated: true)
+        let flashCardVC = FlashCardCollectionViewController()
+        navigationController?.pushViewController(flashCardVC, animated: true)
+        print("row \(indexPath.row) was tapped")
+    }
+}
