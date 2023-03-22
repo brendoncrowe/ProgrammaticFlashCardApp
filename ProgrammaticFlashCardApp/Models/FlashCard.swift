@@ -12,6 +12,7 @@ typealias Writable = Codable & Equatable
 struct CardDeck: Writable {
     let title: String
     let description: String
+    let flashCards: [FlashCard]?
 }
 
 struct FlashCard: Writable {

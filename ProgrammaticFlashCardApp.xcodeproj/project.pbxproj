@@ -19,6 +19,7 @@
 		40A5E43D29CB7E5B00BE6732 /* FlashCardCollectionViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 40A5E43C29CB7E5B00BE6732 /* FlashCardCollectionViewController.swift */; };
 		40A5E44029CB81ED00BE6732 /* DataPersistence .swift in Sources */ = {isa = PBXBuildFile; fileRef = 40A5E43F29CB81ED00BE6732 /* DataPersistence .swift */; };
 		40A5E44329CB820C00BE6732 /* FileManagerExtenion.swift in Sources */ = {isa = PBXBuildFile; fileRef = 40A5E44229CB820C00BE6732 /* FileManagerExtenion.swift */; };
+		40A5E44529CB914D00BE6732 /* CreateCardDeckView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 40A5E44429CB914D00BE6732 /* CreateCardDeckView.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -36,6 +37,7 @@
 		40A5E43C29CB7E5B00BE6732 /* FlashCardCollectionViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FlashCardCollectionViewController.swift; sourceTree = "<group>"; };
 		40A5E43F29CB81ED00BE6732 /* DataPersistence .swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "DataPersistence .swift"; sourceTree = "<group>"; };
 		40A5E44229CB820C00BE6732 /* FileManagerExtenion.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FileManagerExtenion.swift; sourceTree = "<group>"; };
+		40A5E44429CB914D00BE6732 /* CreateCardDeckView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CreateCardDeckView.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -95,6 +97,7 @@
 			children = (
 				40A5E43129CB70D800BE6732 /* CardDeckTableView.swift */,
 				40A5E43829CB78E700BE6732 /* CardCollectionView.swift */,
+				40A5E44429CB914D00BE6732 /* CreateCardDeckView.swift */,
 			);
 			path = Views;
 			sourceTree = "<group>";
@@ -203,6 +206,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				40A5E44529CB914D00BE6732 /* CreateCardDeckView.swift in Sources */,
 				40A5E42129CB6E3900BE6732 /* CardDecksTableViewController.swift in Sources */,
 				40A5E43629CB784700BE6732 /* FlashCard.swift in Sources */,
 				40A5E41D29CB6E3900BE6732 /* AppDelegate.swift in Sources */,

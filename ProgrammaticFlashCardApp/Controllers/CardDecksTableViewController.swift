@@ -39,8 +39,15 @@ class CardDecksTableViewController: UIViewController {
     
     private func createCardDeck() {
         let viewController = CreateCardDeckViewController()
-        present(UINavigationController(rootViewController: viewController), animated: true)
+        if let sheet = viewController.sheetPresentationController {
+            sheet.detents = [ .medium()]
+            sheet.prefersGrabberVisible = true
+            sheet.preferredCornerRadius = 24
+            sheet.largestUndimmedDetentIdentifier = .large
+        }
+        
+        present(viewController, animated: true)
     }
+    
+    
 }
-
-
