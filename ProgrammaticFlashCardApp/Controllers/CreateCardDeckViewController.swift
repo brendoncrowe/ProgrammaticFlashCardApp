@@ -12,7 +12,7 @@ class CreateCardDeckViewController: UIViewController {
     private var createCardDeckView = CreateCardDeckView()
     
     private var doneButton: UIBarButtonItem!
-    private var addButtonIsActive = false
+
     
     override func loadView() {
         super.loadView()
@@ -23,13 +23,15 @@ class CreateCardDeckViewController: UIViewController {
         super.viewDidLoad()
         view.backgroundColor = .systemBackground
         navigationItem.title = "Add a Card Deck"
-        navigationItem.leftBarButtonItem = UIBarButtonItem(title: "Cancel", style: .plain, target: self, action: #selector(dismissView(_:)))
-        
+        createCardDeckView.createDeckButton.addTarget(self, action: #selector(createButtonTapped), for: .touchUpInside)
+        createCardDeckView.deckDescriptionTextField.delegate = self
+        createCardDeckView.deckTitleTextField.delegate = self
     }
     
-    @objc private func dismissView(_ sender: UIBarButtonItem) {
+    @objc private func createButtonTapped(_ sender: UIButton) {
         dismiss(animated: true)
     }
+    
     
     private func createCardDeck() {
         // TODO: done button is inactive until title is given
@@ -38,4 +40,18 @@ class CreateCardDeckViewController: UIViewController {
         
         dismiss(animated: true)
     }
+}
+
+
+extension CreateCardDeckViewController: UITextFieldDelegate {
+    
+    func textFieldDidChangeSelection(_ textField: UITextField) {
+        guard let text = textField.text, !text.isEmpty else {
+            
+            return
+        }
+        
+        print(text)
+    }
+    
 }
