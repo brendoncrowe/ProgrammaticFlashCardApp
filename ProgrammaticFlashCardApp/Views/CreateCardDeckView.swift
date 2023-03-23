@@ -41,7 +41,7 @@ class CreateCardDeckView: UIView {
         button.setTitle("Create Deck", for: .normal)
         button.setTitleColor(.white, for: .normal)
         button.titleLabel?.font = UIFont.preferredFont(forTextStyle: .body)
-        button.backgroundColor = .systemGray
+        button.backgroundColor = .systemBlue
         button.layer.cornerRadius = 20
         
   
