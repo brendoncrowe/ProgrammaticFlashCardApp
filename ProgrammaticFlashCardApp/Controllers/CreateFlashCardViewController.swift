@@ -38,9 +38,7 @@ class CreateFlashCardViewController: UIViewController {
 
     private func updateSaveButtonState() {
         let cardQuestion = createCardView.cardQuestionTextField.text ?? ""
-        let cardAnswer = createCardView.cardAnswerTextView.text ?? ""
         createCardView.createCardButton.isEnabled =  !cardQuestion.isEmpty
-        && !cardAnswer.isEmpty
     }
     
     private func createFlashCard() {

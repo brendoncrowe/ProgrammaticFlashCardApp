@@ -29,6 +29,11 @@ class FlashCardCollectionViewController: UIViewController {
     public weak var delegate: FlashCardCollectionViewControllerDelegate?
     private let flashCardView = FlashCardsCollectionView()
     private var barButton: UIBarButtonItem!
+    private var cellColor: UIColor? = .systemBlue.withAlphaComponent(0.6) {
+        didSet {
+            // TODO: User defaults here 
+        }
+    }
     
     override func loadView() {
         super.loadView()
@@ -45,7 +50,6 @@ class FlashCardCollectionViewController: UIViewController {
     required init?(coder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
     }
-    
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -85,7 +89,7 @@ extension FlashCardCollectionViewController: UICollectionViewDataSource {
         let flashcard = cardDeck.flashCards[indexPath.row]
         cell.layer.cornerRadius = 16
         cell.configureCell(for: flashcard)
-        cell.backgroundColor = .systemBlue.withAlphaComponent(0.6)
+        cell.backgroundColor = cellColor
         return cell
     }
     

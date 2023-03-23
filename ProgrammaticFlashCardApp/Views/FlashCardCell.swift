@@ -25,7 +25,6 @@ class FlashCardCell: UICollectionViewCell {
         let answer = UILabel()
         answer.translatesAutoresizingMaskIntoConstraints = false
         answer.font = UIFont.preferredFont(forTextStyle: .body)
-        answer.text = "Answer"
         answer.isHidden = true
         answer.layer.cornerRadius = 8
         answer.numberOfLines = 8
