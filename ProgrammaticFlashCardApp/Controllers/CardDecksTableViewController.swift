@@ -10,6 +10,7 @@ import UIKit
 class CardDecksTableViewController: UIViewController {
     
     private let cardDeckView = CardDeckTableView()
+    private var currentCardDeck: CardDeck?
     private var cardDecks = [CardDeck]() {
         didSet {
             cardDeckView.tableView.reloadData()
@@ -30,7 +31,6 @@ class CardDecksTableViewController: UIViewController {
     private func configureViewController() {
         view.backgroundColor = .systemBackground
         navigationItem.title = "Card Decks"
-        navigationController?.navigationBar.prefersLargeTitles = true
         addCardDeckButton = UIBarButtonItem(image: UIImage(systemName: "plus"), style: .plain, target: self, action: #selector(addCardDeckButtonPressed))
         navigationItem.rightBarButtonItem = addCardDeckButton
         cardDeckView.tableView.dataSource = self
@@ -55,7 +55,6 @@ class CardDecksTableViewController: UIViewController {
     }
 }
 
-
 extension CardDecksTableViewController: UITableViewDataSource {
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
@@ -65,9 +64,9 @@ extension CardDecksTableViewController: UITableViewDataSource {
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: "deckCell", for: indexPath)
         let cardDeck = cardDecks[indexPath.row]
+        cell.accessoryType = .disclosureIndicator
         var content = cell.defaultContentConfiguration()
         content.text = cardDeck.title
-
         content.secondaryText = cardDeck.description
         cell.contentConfiguration = content
         return cell
@@ -78,16 +77,28 @@ extension CardDecksTableViewController: UITableViewDelegate {
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         tableView.deselectRow(at: indexPath, animated: true)
-        let flashCardVC = FlashCardCollectionViewController()
+        let cardDeck = cardDecks[indexPath.row]
+        currentCardDeck = cardDeck
+        let flashCardVC = FlashCardCollectionViewController(cardDeck: cardDeck)
+        flashCardVC.delegate = self
+        flashCardVC.cardDeck = cardDecks[indexPath.row]
         navigationController?.pushViewController(flashCardVC, animated: true)
-        print("row \(indexPath.row) was tapped")
     }
 }
 
 extension CardDecksTableViewController: CreateCardDeckViewControllerDelegate {
-    
     func didCreate(_ sender: CreateCardDeckViewController, cardDeck: CardDeck) {
         cardDecks.append(cardDeck)
     }
-    
 }
+
+extension CardDecksTableViewController: FlashCardCollectionViewControllerDelegate {
+    func flashCardWasAdded(_ sender: FlashCardCollectionViewController, toCardDeck: CardDeck) {
+        guard let index = cardDecks.firstIndex(of: currentCardDeck!) else { return }
+        print("called")
+        cardDecks[index] = toCardDeck
+    }
+}
+
+
+

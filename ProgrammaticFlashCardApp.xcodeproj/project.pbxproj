@@ -7,6 +7,8 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		405CB06F29CBE84E00E3D161 /* CreateFlashCardView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 405CB06E29CBE84E00E3D161 /* CreateFlashCardView.swift */; };
+		405CB07129CBE91E00E3D161 /* CreateFlashCardViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 405CB07029CBE91E00E3D161 /* CreateFlashCardViewController.swift */; };
 		40A5E41D29CB6E3900BE6732 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 40A5E41C29CB6E3900BE6732 /* AppDelegate.swift */; };
 		40A5E41F29CB6E3900BE6732 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 40A5E41E29CB6E3900BE6732 /* SceneDelegate.swift */; };
 		40A5E42129CB6E3900BE6732 /* CardDecksTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 40A5E42029CB6E3900BE6732 /* CardDecksTableViewController.swift */; };
@@ -14,16 +16,17 @@
 		40A5E42929CB6E3900BE6732 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 40A5E42729CB6E3900BE6732 /* LaunchScreen.storyboard */; };
 		40A5E43229CB70D800BE6732 /* CardDeckTableView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 40A5E43129CB70D800BE6732 /* CardDeckTableView.swift */; };
 		40A5E43629CB784700BE6732 /* FlashCard.swift in Sources */ = {isa = PBXBuildFile; fileRef = 40A5E43529CB784700BE6732 /* FlashCard.swift */; };
-		40A5E43929CB78E700BE6732 /* CardCollectionView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 40A5E43829CB78E700BE6732 /* CardCollectionView.swift */; };
 		40A5E43B29CB7C8900BE6732 /* CreateCardDeckViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 40A5E43A29CB7C8900BE6732 /* CreateCardDeckViewController.swift */; };
 		40A5E43D29CB7E5B00BE6732 /* FlashCardCollectionViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 40A5E43C29CB7E5B00BE6732 /* FlashCardCollectionViewController.swift */; };
 		40A5E44029CB81ED00BE6732 /* DataPersistence .swift in Sources */ = {isa = PBXBuildFile; fileRef = 40A5E43F29CB81ED00BE6732 /* DataPersistence .swift */; };
 		40A5E44329CB820C00BE6732 /* FileManagerExtenion.swift in Sources */ = {isa = PBXBuildFile; fileRef = 40A5E44229CB820C00BE6732 /* FileManagerExtenion.swift */; };
 		40A5E44529CB914D00BE6732 /* CreateCardDeckView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 40A5E44429CB914D00BE6732 /* CreateCardDeckView.swift */; };
-		40A5E44729CBD6EB00BE6732 /* FlashCardsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 40A5E44629CBD6EB00BE6732 /* FlashCardsView.swift */; };
+		40A5E44729CBD6EB00BE6732 /* FlashCardsCollectionView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 40A5E44629CBD6EB00BE6732 /* FlashCardsCollectionView.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		405CB06E29CBE84E00E3D161 /* CreateFlashCardView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CreateFlashCardView.swift; sourceTree = "<group>"; };
+		405CB07029CBE91E00E3D161 /* CreateFlashCardViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CreateFlashCardViewController.swift; sourceTree = "<group>"; };
 		40A5E41929CB6E3900BE6732 /* ProgrammaticFlashCardApp.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = ProgrammaticFlashCardApp.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		40A5E41C29CB6E3900BE6732 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		40A5E41E29CB6E3900BE6732 /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -33,13 +36,12 @@
 		40A5E42A29CB6E3900BE6732 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		40A5E43129CB70D800BE6732 /* CardDeckTableView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CardDeckTableView.swift; sourceTree = "<group>"; };
 		40A5E43529CB784700BE6732 /* FlashCard.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FlashCard.swift; sourceTree = "<group>"; };
-		40A5E43829CB78E700BE6732 /* CardCollectionView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CardCollectionView.swift; sourceTree = "<group>"; };
 		40A5E43A29CB7C8900BE6732 /* CreateCardDeckViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CreateCardDeckViewController.swift; sourceTree = "<group>"; };
 		40A5E43C29CB7E5B00BE6732 /* FlashCardCollectionViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FlashCardCollectionViewController.swift; sourceTree = "<group>"; };
 		40A5E43F29CB81ED00BE6732 /* DataPersistence .swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "DataPersistence .swift"; sourceTree = "<group>"; };
 		40A5E44229CB820C00BE6732 /* FileManagerExtenion.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FileManagerExtenion.swift; sourceTree = "<group>"; };
 		40A5E44429CB914D00BE6732 /* CreateCardDeckView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CreateCardDeckView.swift; sourceTree = "<group>"; };
-		40A5E44629CBD6EB00BE6732 /* FlashCardsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FlashCardsView.swift; sourceTree = "<group>"; };
+		40A5E44629CBD6EB00BE6732 /* FlashCardsCollectionView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FlashCardsCollectionView.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -98,8 +100,8 @@
 			isa = PBXGroup;
 			children = (
 				40A5E43129CB70D800BE6732 /* CardDeckTableView.swift */,
-				40A5E44629CBD6EB00BE6732 /* FlashCardsView.swift */,
-				40A5E43829CB78E700BE6732 /* CardCollectionView.swift */,
+				40A5E44629CBD6EB00BE6732 /* FlashCardsCollectionView.swift */,
+				405CB06E29CBE84E00E3D161 /* CreateFlashCardView.swift */,
 				40A5E44429CB914D00BE6732 /* CreateCardDeckView.swift */,
 			);
 			path = Views;
@@ -109,8 +111,9 @@
 			isa = PBXGroup;
 			children = (
 				40A5E42029CB6E3900BE6732 /* CardDecksTableViewController.swift */,
-				40A5E43C29CB7E5B00BE6732 /* FlashCardCollectionViewController.swift */,
 				40A5E43A29CB7C8900BE6732 /* CreateCardDeckViewController.swift */,
+				40A5E43C29CB7E5B00BE6732 /* FlashCardCollectionViewController.swift */,
+				405CB07029CBE91E00E3D161 /* CreateFlashCardViewController.swift */,
 			);
 			path = Controllers;
 			sourceTree = "<group>";
@@ -210,16 +213,17 @@
 			buildActionMask = 2147483647;
 			files = (
 				40A5E44529CB914D00BE6732 /* CreateCardDeckView.swift in Sources */,
-				40A5E44729CBD6EB00BE6732 /* FlashCardsView.swift in Sources */,
+				40A5E44729CBD6EB00BE6732 /* FlashCardsCollectionView.swift in Sources */,
+				405CB06F29CBE84E00E3D161 /* CreateFlashCardView.swift in Sources */,
 				40A5E42129CB6E3900BE6732 /* CardDecksTableViewController.swift in Sources */,
 				40A5E43629CB784700BE6732 /* FlashCard.swift in Sources */,
 				40A5E41D29CB6E3900BE6732 /* AppDelegate.swift in Sources */,
 				40A5E44329CB820C00BE6732 /* FileManagerExtenion.swift in Sources */,
 				40A5E41F29CB6E3900BE6732 /* SceneDelegate.swift in Sources */,
 				40A5E43B29CB7C8900BE6732 /* CreateCardDeckViewController.swift in Sources */,
+				405CB07129CBE91E00E3D161 /* CreateFlashCardViewController.swift in Sources */,
 				40A5E44029CB81ED00BE6732 /* DataPersistence .swift in Sources */,
 				40A5E43D29CB7E5B00BE6732 /* FlashCardCollectionViewController.swift in Sources */,
-				40A5E43929CB78E700BE6732 /* CardCollectionView.swift in Sources */,
 				40A5E43229CB70D800BE6732 /* CardDeckTableView.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

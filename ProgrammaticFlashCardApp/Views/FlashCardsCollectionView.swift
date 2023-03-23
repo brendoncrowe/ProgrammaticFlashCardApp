@@ -7,7 +7,7 @@
 
 import UIKit
 
-class FlashCardsView: UIView {
+class FlashCardsCollectionView: UIView {
     
     public lazy var collectionView: UICollectionView = {
         let layout = UICollectionViewFlowLayout()
@@ -16,9 +16,10 @@ class FlashCardsView: UIView {
         let cv = UICollectionView(frame: .zero, collectionViewLayout: layout)
         cv.translatesAutoresizingMaskIntoConstraints = false
         cv.backgroundColor = .systemBackground
-        cv.register(UICollectionViewCell.self, forCellWithReuseIdentifier: "flashcardCell")
+        cv.register(UICollectionViewCell.self, forCellWithReuseIdentifier: "flashCardCell")
         return cv
     }()
+    
 
     override init(frame: CGRect) {
         super.init(frame: frame)
@@ -31,7 +32,7 @@ class FlashCardsView: UIView {
     }
     
     private func commonInit() {
-        setCollectionViewConstraints()
+        setCollectionViewConstraints()        
     }
     
     private func setCollectionViewConstraints() {
@@ -43,5 +44,4 @@ class FlashCardsView: UIView {
             collectionView.bottomAnchor.constraint(equalTo: bottomAnchor)
         ])
     }
-
 }

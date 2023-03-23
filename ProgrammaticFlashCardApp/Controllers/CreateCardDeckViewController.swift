@@ -49,7 +49,7 @@ class CreateCardDeckViewController: UIViewController {
     private func createCardDeck() {
         guard let deckTitle = createCardDeckView.deckTitleTextField.text,
               let deckDescription = createCardDeckView.deckDescriptionTextField.text else { return }
-        let cardDeck = CardDeck(title: deckTitle, description: deckDescription, flashCards: nil)
+        let cardDeck = CardDeck(title: deckTitle, description: deckDescription, flashCards: [])
         delegate?.didCreate(self, cardDeck: cardDeck)
         dismiss(animated: true)
     }
