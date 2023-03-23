@@ -79,8 +79,12 @@ extension FlashCardCollectionViewController: UICollectionViewDataSource {
     }
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
-        let cell = flashCardView.collectionView.dequeueReusableCell(withReuseIdentifier: "flashCardCell", for: indexPath)
-        cell.backgroundColor = .systemCyan
+        guard let cell = flashCardView.collectionView.dequeueReusableCell(withReuseIdentifier: "flashCardCell", for: indexPath) as? FlashCardCell else {
+            fatalError("could not dequeue a FlashCardCell")
+        }
+        let flashcard = cardDeck.flashCards[indexPath.row]
+        cell.configureCell(for: flashcard)
+        cell.backgroundColor = .systemBlue.withAlphaComponent(0.6)
         return cell
     }
     
@@ -88,6 +92,10 @@ extension FlashCardCollectionViewController: UICollectionViewDataSource {
 }
 
 extension FlashCardCollectionViewController: UICollectionViewDelegateFlowLayout {
+    
+    func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
+        
+    }
     
     
 }
