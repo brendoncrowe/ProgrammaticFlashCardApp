@@ -27,7 +27,7 @@ class FlashCardCollectionViewController: UIViewController {
         }
     }
     public weak var delegate: FlashCardCollectionViewControllerDelegate?
-    private let flashCardView = FlashCardsCollectionView()    
+    private let flashCardView = FlashCardsCollectionView()
     private var barButton: UIBarButtonItem!
     
     override func loadView() {
@@ -46,7 +46,7 @@ class FlashCardCollectionViewController: UIViewController {
         fatalError("init(coder:) has not been implemented")
     }
     
-
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         view.backgroundColor = .systemBackground
@@ -83,6 +83,7 @@ extension FlashCardCollectionViewController: UICollectionViewDataSource {
             fatalError("could not dequeue a FlashCardCell")
         }
         let flashcard = cardDeck.flashCards[indexPath.row]
+        cell.layer.cornerRadius = 16
         cell.configureCell(for: flashcard)
         cell.backgroundColor = .systemBlue.withAlphaComponent(0.6)
         return cell
@@ -95,10 +96,23 @@ extension FlashCardCollectionViewController: UICollectionViewDelegateFlowLayout 
     
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
         
+        guard let flashCard = collectionView.cellForItem(at: indexPath) as? FlashCardCell else {
+            return
+        }
+            if flashCard.flashCardAnswerLabel.isHidden == true {
+                UIView.transition(with: collectionView.cellForItem(at: indexPath)!, duration: 0.4, options: [.transitionFlipFromRight, .curveEaseInOut]) {
+                    flashCard.flashCardAnswerLabel.isHidden = false
+                    flashCard.flashCardQuestionLabel.isHidden = true
+                }
+            } else {
+                UIView.transition(with: collectionView.cellForItem(at: indexPath)!, duration: 0.4, options: [.transitionFlipFromLeft, .curveEaseInOut]) {
+                    flashCard.flashCardQuestionLabel.isHidden = false
+                    flashCard.flashCardAnswerLabel.isHidden = true
+                }
+            }
+        }
     }
-    
-    
-}
+
 
 extension FlashCardCollectionViewController: CreateFlashCardViewControllerDelegate {
     func didCreate(_ sender: CreateFlashCardViewController, flashCard: FlashCard) {

@@ -68,7 +68,7 @@ class CreateCardDeckViewController: UIViewController {
                 button.transform = CGAffineTransform(translationX: 0, y: 0)
             }
             
-        }, completion: nil)
+        })
     }
     
     @objc private func createButtonTapped(_ sender: UIButton) {
@@ -97,9 +97,7 @@ class CreateCardDeckViewController: UIViewController {
     }
 }
 
-
 extension CreateCardDeckViewController: UITextFieldDelegate {
-    
     func textFieldDidChangeSelection(_ textField: UITextField) {
         guard let text = textField.text, !text.isEmpty else {
             updateSaveButtonState()

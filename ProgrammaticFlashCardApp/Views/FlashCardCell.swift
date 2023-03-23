@@ -7,17 +7,29 @@
 
 import UIKit
 
+
 class FlashCardCell: UICollectionViewCell {
     
-    
-    private lazy var flashCardQuestionLabel: UILabel = {
+    public lazy var flashCardQuestionLabel: UILabel = {
         let label = UILabel()
         label.translatesAutoresizingMaskIntoConstraints = false
         label.font = UIFont.preferredFont(forTextStyle: .title3)
         label.textAlignment = .center
-        label.text = "Question answer"
-        
+        label.text = "Question"
+        label.numberOfLines = 0
         return label
+    }()
+    
+    
+    public lazy var flashCardAnswerLabel: UILabel = {
+        let answer = UILabel()
+        answer.translatesAutoresizingMaskIntoConstraints = false
+        answer.font = UIFont.preferredFont(forTextStyle: .body)
+        answer.text = "Answer"
+        answer.isHidden = true
+        answer.layer.cornerRadius = 8
+        answer.numberOfLines = 8
+        return answer
     }()
     
     
@@ -32,22 +44,32 @@ class FlashCardCell: UICollectionViewCell {
     }
     
     private func commonInit() {
-        setTitleLabelConstraints()
+        setFlashCardQuestionLabel()
+        setFlashCardAnswerLabel()
     }
     
-    private func setTitleLabelConstraints() {
+    private func setFlashCardQuestionLabel() {
         addSubview(flashCardQuestionLabel)
         NSLayoutConstraint.activate([
-            flashCardQuestionLabel.centerXAnchor.constraint(equalTo: centerXAnchor),
-            flashCardQuestionLabel.centerYAnchor.constraint(equalTo: centerYAnchor),
-            flashCardQuestionLabel.leadingAnchor.constraint(equalTo: leadingAnchor, constant: 20),
-            flashCardQuestionLabel.trailingAnchor.constraint(equalTo: trailingAnchor, constant: -20)
-            
+            flashCardQuestionLabel.leadingAnchor.constraint(equalTo: leadingAnchor, constant: 14),
+            flashCardQuestionLabel.trailingAnchor.constraint(equalTo: trailingAnchor, constant: -14),
+            flashCardQuestionLabel.topAnchor.constraint(equalTo: topAnchor, constant: 8),
+            flashCardQuestionLabel.bottomAnchor.constraint(equalTo: bottomAnchor, constant: -8)
+        ])
+    }
+    
+    private func setFlashCardAnswerLabel() {
+        addSubview(flashCardAnswerLabel)
+        NSLayoutConstraint.activate([
+            flashCardAnswerLabel.leadingAnchor.constraint(equalTo: leadingAnchor, constant: 14),
+            flashCardAnswerLabel.trailingAnchor.constraint(equalTo: trailingAnchor, constant: -14),
+            flashCardAnswerLabel.topAnchor.constraint(equalTo: topAnchor, constant: 8),
+            flashCardAnswerLabel.bottomAnchor.constraint(equalTo: bottomAnchor, constant: -8)
         ])
     }
     
     public func configureCell(for flashCard: FlashCard) {
         flashCardQuestionLabel.text = flashCard.question
+        flashCardAnswerLabel.text = flashCard.answer
     }
-    
 }
