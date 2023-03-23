@@ -16,6 +16,7 @@ class CreateCardDeckViewController: UIViewController {
     
     private var createCardDeckView = CreateCardDeckView()
     public weak var delegate: CreateCardDeckViewControllerDelegate?
+    private var createButtonIsActive = false
     
     
     override func loadView() {
@@ -31,20 +32,61 @@ class CreateCardDeckViewController: UIViewController {
         createCardDeckView.deckDescriptionTextField.delegate = self
         createCardDeckView.deckTitleTextField.delegate = self
         updateSaveButtonState()
+        
+    }
+    
+    func performButtonShakeAnimation(_ button: UIButton) {
+        UIView.animateKeyframes(withDuration: 0.3, delay: 0, options: [], animations: {
+            UIView.addKeyframe(withRelativeStartTime: 0, relativeDuration: 0.1) {
+                button.transform = CGAffineTransform(translationX: 20, y: 0)
+            }
+            UIView.addKeyframe(withRelativeStartTime: 0.1, relativeDuration: 0.1) {
+                button.transform = CGAffineTransform(translationX: 0, y: 0)
+            }
+            UIView.addKeyframe(withRelativeStartTime: 0.2, relativeDuration: 0.1) {
+                button.transform = CGAffineTransform(translationX: -20, y: 0)
+            }
+            UIView.addKeyframe(withRelativeStartTime: 0.3, relativeDuration: 0.1) {
+                button.transform = CGAffineTransform(translationX: 0, y: 0)
+            }
+            UIView.addKeyframe(withRelativeStartTime: 0.4, relativeDuration: 0.1) {
+                button.transform = CGAffineTransform(translationX: 20, y: 0)
+            }
+            UIView.addKeyframe(withRelativeStartTime: 0.5, relativeDuration: 0.1) {
+                button.transform = CGAffineTransform(translationX: 0, y: 0)
+            }
+            UIView.addKeyframe(withRelativeStartTime: 0.6, relativeDuration: 0.1) {
+                button.transform = CGAffineTransform(translationX: -20, y: 0)
+            }
+            UIView.addKeyframe(withRelativeStartTime: 0.7, relativeDuration: 0.1) {
+                button.transform = CGAffineTransform(translationX: 0, y: 0)
+            }
+            UIView.addKeyframe(withRelativeStartTime: 0.8, relativeDuration: 0.1) {
+                button.transform = CGAffineTransform(translationX: 20, y: 0)
+            }
+            UIView.addKeyframe(withRelativeStartTime: 0.9, relativeDuration: 0.1) {
+                button.transform = CGAffineTransform(translationX: 0, y: 0)
+            }
+            
+        }, completion: nil)
     }
     
     @objc private func createButtonTapped(_ sender: UIButton) {
-        dismiss(animated: true)
-        createCardDeck()
+        if createButtonIsActive == false {
+            performButtonShakeAnimation(createCardDeckView.createDeckButton)
+            
+        } else {
+            createCardDeck()
+            dismiss(animated: true)
+        }
     }
     
     private func updateSaveButtonState() {
         let deckTitle = createCardDeckView.deckTitleTextField.text ?? ""
-        let deckDescription = createCardDeckView.deckTitleTextField.text ?? ""
-        createCardDeckView.createDeckButton.isEnabled =  !deckTitle.isEmpty
-        && !deckDescription.isEmpty
+        if !deckTitle.isEmpty {
+            createButtonIsActive = true
+        }
     }
-    
     
     private func createCardDeck() {
         guard let deckTitle = createCardDeckView.deckTitleTextField.text,
@@ -64,6 +106,7 @@ extension CreateCardDeckViewController: UITextFieldDelegate {
             return
         }
         updateSaveButtonState()
-        print(text)
     }
 }
+
+

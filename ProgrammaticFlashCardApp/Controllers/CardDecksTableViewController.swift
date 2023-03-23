@@ -13,6 +13,13 @@ class CardDecksTableViewController: UIViewController {
     private var currentCardDeck: CardDeck?
     private var cardDecks = [CardDeck]() {
         didSet {
+            if cardDecks.isEmpty {
+                // setup empty view
+                cardDeckView.tableView.backgroundView = EmptyView()
+            } else {
+                // remove empty view
+                cardDeckView.tableView.backgroundView = nil
+            }
             cardDeckView.tableView.reloadData()
         }
     }
@@ -35,7 +42,7 @@ class CardDecksTableViewController: UIViewController {
         navigationItem.rightBarButtonItem = addCardDeckButton
         cardDeckView.tableView.dataSource = self
         cardDeckView.tableView.delegate = self
-        cardDecks = CardDeck.decks
+        cardDecks = CardDeck.dummyData
     }
     
     @objc private func addCardDeckButtonPressed(_ sender: UIBarButtonItem) {
@@ -93,12 +100,8 @@ extension CardDecksTableViewController: CreateCardDeckViewControllerDelegate {
 }
 
 extension CardDecksTableViewController: FlashCardCollectionViewControllerDelegate {
-    func flashCardWasAdded(_ sender: FlashCardCollectionViewController, toCardDeck: CardDeck) {
+    func flashCardWasAdded(_ sender: FlashCardCollectionViewController, cardDeck: CardDeck) {
         guard let index = cardDecks.firstIndex(of: currentCardDeck!) else { return }
-        print("called")
-        cardDecks[index] = toCardDeck
+        cardDecks[index] = cardDeck
     }
 }
-
-
-

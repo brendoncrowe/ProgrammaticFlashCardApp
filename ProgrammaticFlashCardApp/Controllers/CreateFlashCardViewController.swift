@@ -27,26 +27,25 @@ class CreateFlashCardViewController: UIViewController {
         updateSaveButtonState()
         createCardView.createCardButton.addTarget(self, action: #selector(createButtonTapped), for: .touchUpInside)
         createCardView.cardQuestionTextField.delegate = self
-        createCardView.cardAnswerTextField.delegate = self
     }
     
     
     @objc private func createButtonTapped(_ sender: UIButton) {
         dismiss(animated: true)
-        createCardDeck()
+        createFlashCard()
     }
     
 
     private func updateSaveButtonState() {
         let cardQuestion = createCardView.cardQuestionTextField.text ?? ""
-        let cardAnswer = createCardView.cardAnswerTextField.text ?? ""
+        let cardAnswer = createCardView.cardAnswerTextView.text ?? ""
         createCardView.createCardButton.isEnabled =  !cardQuestion.isEmpty
         && !cardAnswer.isEmpty
     }
     
-    private func createCardDeck() {
+    private func createFlashCard() {
         guard let cardQuestion = createCardView.cardQuestionTextField.text,
-              let cardAnswer = createCardView.cardAnswerTextField.text else { return }
+              let cardAnswer = createCardView.cardAnswerTextView.text else { return }
         let flashCard = FlashCard(question: cardQuestion, answer: cardAnswer)
         delegate?.didCreate(self, flashCard: flashCard)
         dismiss(animated: true)

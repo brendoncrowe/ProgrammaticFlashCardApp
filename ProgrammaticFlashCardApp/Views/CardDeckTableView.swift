@@ -10,7 +10,7 @@ import UIKit
 class CardDeckTableView: UIView {
     
     public lazy var tableView: UITableView = {
-        let tv = UITableView()
+        let tv = UITableView(frame: .zero, style: .plain)
         tv.translatesAutoresizingMaskIntoConstraints = false
         tv.register(UITableViewCell.self, forCellReuseIdentifier: "deckCell")
         return tv

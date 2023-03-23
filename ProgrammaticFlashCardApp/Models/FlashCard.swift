@@ -14,12 +14,11 @@ struct CardDeck: Writable  {
     var description: String
     var flashCards: [FlashCard]
     
-    static var decks = [CardDeck(title: "Test1 title", description: "Test1 Description", flashCards: []),
+    static var dummyData = [CardDeck(title: "Test1 title", description: "Test1 Description", flashCards: []),
                         CardDeck(title: "Test2 title", description: "Test2 Description", flashCards: []),
                         CardDeck(title: "Test3 title", description: "Test3 Description", flashCards: [FlashCard(question: "What is Math", answer: "The study of numbers!"),
                             FlashCard(question: "What is Math", answer: "The study of numbers!"),
-                            FlashCard(question: "What is Math", answer: "The study of numbers!")
-                                                                                                     ])]
+                            FlashCard(question: "What is Math", answer: "The study of numbers!") ])]
     
 }
 

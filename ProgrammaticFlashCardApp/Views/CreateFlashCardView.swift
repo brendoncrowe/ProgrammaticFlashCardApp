@@ -18,7 +18,6 @@ class CreateFlashCardView: UIView {
         return label
     }()
     
-    
     public lazy var cardQuestionTextField: UITextField = {
         let tf = UITextField()
         tf.translatesAutoresizingMaskIntoConstraints = false
@@ -27,14 +26,15 @@ class CreateFlashCardView: UIView {
         return tf
     }()
     
-    public lazy var cardAnswerTextField: UITextField = {
-        let tf = UITextField()
-        tf.translatesAutoresizingMaskIntoConstraints = false
-        tf.borderStyle = .roundedRect
-        tf.placeholder = "enter card answer"
-        return tf
+    public lazy var cardAnswerTextView: UITextView = {
+        let tv = UITextView()
+        tv.translatesAutoresizingMaskIntoConstraints = false
+        tv.layer.cornerRadius = 6
+        tv.text = "enter answer here"
+        tv.layer.borderColor = UIColor.systemGray3.cgColor
+        tv.layer.borderWidth = 0.4
+        return tv
     }()
-    
     
     public lazy var createCardButton: UIButton = {
         let button = UIButton(type: .system)
@@ -60,7 +60,7 @@ class CreateFlashCardView: UIView {
     private func commonInit() {
         setTitleLabelConstraints()
         setCardQuestionTextFieldConstraints()
-        setCardAnswerTextFieldConstraints()
+        setCardAnswerTextViewConstraints()
         setButtonLayoutConstraints()
     }
     
@@ -83,19 +83,20 @@ class CreateFlashCardView: UIView {
         ])
     }
     
-    private func setCardAnswerTextFieldConstraints() {
-        addSubview(cardAnswerTextField)
+    private func setCardAnswerTextViewConstraints() {
+        addSubview(cardAnswerTextView)
         NSLayoutConstraint.activate([
-            cardAnswerTextField.leadingAnchor.constraint(equalTo: leadingAnchor, constant: 40),
-            cardAnswerTextField.topAnchor.constraint(equalTo: cardQuestionTextField.bottomAnchor, constant: 16),
-            cardAnswerTextField.trailingAnchor.constraint(equalTo: trailingAnchor, constant: -40)
+            cardAnswerTextView.leadingAnchor.constraint(equalTo: leadingAnchor, constant: 40),
+            cardAnswerTextView.topAnchor.constraint(equalTo: cardQuestionTextField.bottomAnchor, constant: 16),
+            cardAnswerTextView.trailingAnchor.constraint(equalTo: trailingAnchor, constant: -40),
+            cardAnswerTextView.heightAnchor.constraint(equalTo: heightAnchor, multiplier: 0.3)
         ])
     }
     
     private func setButtonLayoutConstraints() {
         addSubview(createCardButton)
         NSLayoutConstraint.activate([
-            createCardButton.topAnchor.constraint(equalTo: cardAnswerTextField.bottomAnchor, constant: 40),
+            createCardButton.topAnchor.constraint(equalTo: cardAnswerTextView.bottomAnchor, constant: 40),
             createCardButton.centerXAnchor.constraint(equalTo: centerXAnchor),
             createCardButton.leadingAnchor.constraint(equalTo: leadingAnchor, constant: 120),
             createCardButton.trailingAnchor.constraint(equalTo: trailingAnchor, constant: -120),

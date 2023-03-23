@@ -8,13 +8,21 @@
 import UIKit
 
 protocol FlashCardCollectionViewControllerDelegate: NSObject {
-    func flashCardWasAdded(_ sender: FlashCardCollectionViewController, toCardDeck: CardDeck)
+    func flashCardWasAdded(_ sender: FlashCardCollectionViewController, cardDeck: CardDeck)
 }
 
 class FlashCardCollectionViewController: UIViewController {
     
     public var cardDeck: CardDeck {
         didSet {
+            if cardDeck.flashCards.isEmpty {
+                // setup empty view
+                flashCardView.collectionView.backgroundView = EmptyView()
+            } else {
+                // remove empty view
+                flashCardView.collectionView.backgroundView = nil
+            }
+            self.navigationItem.title = "\(cardDeck.title) (\(cardDeck.flashCards.count))"
             flashCardView.collectionView.reloadData()
         }
     }
@@ -42,7 +50,7 @@ class FlashCardCollectionViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         view.backgroundColor = .systemBackground
-        navigationItem.title = cardDeck.title
+        navigationItem.title = "\(cardDeck.title) (\(cardDeck.flashCards.count))"
         barButton = UIBarButtonItem(image: UIImage(systemName: "plus"), style: .plain, target: self, action: #selector(addCardButtonPressed))
         navigationItem.rightBarButtonItem = barButton
     }
@@ -85,9 +93,8 @@ extension FlashCardCollectionViewController: UICollectionViewDelegateFlowLayout 
 }
 
 extension FlashCardCollectionViewController: CreateFlashCardViewControllerDelegate {
-    
     func didCreate(_ sender: CreateFlashCardViewController, flashCard: FlashCard) {
         cardDeck.flashCards.append(flashCard)
-        self.delegate?.flashCardWasAdded(self, toCardDeck: cardDeck)
+        self.delegate?.flashCardWasAdded(self, cardDeck: cardDeck)
     }
 }
