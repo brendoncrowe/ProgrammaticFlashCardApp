@@ -8,8 +8,8 @@
 import UIKit
 
 protocol FlashCardCollectionViewControllerDelegate: NSObject {
-    func flashCardWasAdded(_ sender: FlashCardCollectionViewController, cardDeck: CardDeck)
-    func flashCardWasDeleted(_ sender: FlashCardCollectionViewController, cardDeck: CardDeck)
+    func flashCardWasAdded(_ sender: FlashCardCollectionViewController, cardDeck: CardDeck, indexPathRow: Int)
+    func flashCardWasDeleted(_ sender: FlashCardCollectionViewController, cardDeck: CardDeck, indexPathRow: Int)
 }
 
 class FlashCardCollectionViewController: UIViewController {
@@ -31,11 +31,8 @@ class FlashCardCollectionViewController: UIViewController {
     public weak var delegate: FlashCardCollectionViewControllerDelegate?
     private let flashCardView = FlashCardsCollectionView()
     private var barButton: UIBarButtonItem!
-    private var cellColor: Int? {
-        didSet {
-            
-        }
-    }
+    private var cellColor: Int?
+    public var indexPath: Int!
     
     override func loadView() {
         super.loadView()
@@ -143,7 +140,7 @@ extension FlashCardCollectionViewController: UICollectionViewDelegateFlowLayout 
 extension FlashCardCollectionViewController: CreateFlashCardViewControllerDelegate {
     func didCreate(_ sender: CreateFlashCardViewController, flashCard: FlashCard) {
         cardDeck.flashCards.append(flashCard)
-        self.delegate?.flashCardWasAdded(self, cardDeck: cardDeck)
+        self.delegate?.flashCardWasAdded(self, cardDeck: cardDeck, indexPathRow: indexPath)
     }
 }
 
@@ -154,10 +151,9 @@ extension FlashCardCollectionViewController: FlashCardCellDelegate {
         let alertController = UIAlertController(title: nil, message: nil, preferredStyle: .actionSheet)
         let cancelAction = UIAlertAction(title: "cancel", style: .cancel)
         let editAction = UIAlertAction(title: "edit", style: .default)
-        let deleteAction = UIAlertAction(title: "delete", style: .destructive) { [weak self] alertAction in
-            let index = self?.cardDeck.flashCards.firstIndex(of: card)
-            self?.cardDeck.flashCards.remove(at: index!)
-            self?.delegate?.flashCardWasDeleted(self!, cardDeck: self!.cardDeck)
+        let deleteAction = UIAlertAction(title: "delete", style: .destructive) { alertAction in
+
+
         }
         alertController.addAction(editAction)
         alertController.addAction(deleteAction)

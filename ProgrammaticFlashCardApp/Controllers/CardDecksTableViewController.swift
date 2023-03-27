@@ -11,7 +11,6 @@ class CardDecksTableViewController: UIViewController {
     
     private let cardDeckView = CardDeckTableView()
     private var dataPersistence = DataPersistence<CardDeck>(filename: "cardDecks.plist")
-    private var currentCardDeck: CardDeck?
     private var cardDecks = [CardDeck]() {
         didSet {
             if cardDecks.isEmpty {
@@ -113,9 +112,9 @@ extension CardDecksTableViewController: UITableViewDelegate {
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         tableView.deselectRow(at: indexPath, animated: true)
         let cardDeck = cardDecks[indexPath.row]
-        currentCardDeck = cardDeck
         let flashCardVC = FlashCardCollectionViewController(dataPersistence: dataPersistence, cardDeck: cardDeck)
         flashCardVC.delegate = self
+        flashCardVC.indexPath = indexPath.row
         flashCardVC.cardDeck = cardDecks[indexPath.row]
         navigationController?.pushViewController(flashCardVC, animated: true)
     }
@@ -147,15 +146,15 @@ extension CardDecksTableViewController: CreateCardDeckViewControllerDelegate {
 }
 
 extension CardDecksTableViewController: FlashCardCollectionViewControllerDelegate {
-    func flashCardWasAdded(_ sender: FlashCardCollectionViewController, cardDeck: CardDeck) {
-        guard let index = cardDecks.firstIndex(of: currentCardDeck!) else { return }
-        cardDecks[index] = cardDeck
-        dataPersistence.update(currentCardDeck!, with: cardDeck)
+    func flashCardWasAdded(_ sender: FlashCardCollectionViewController, cardDeck: CardDeck, indexPathRow: Int) {
+        cardDecks[indexPathRow] = cardDeck
+        dataPersistence.update(cardDecks[indexPathRow], with: cardDeck)
     }
     
-    func flashCardWasDeleted(_ sender: FlashCardCollectionViewController, cardDeck: CardDeck) {
-        guard let index = cardDecks.firstIndex(of: currentCardDeck!) else { return }
-        cardDecks[index] = cardDeck
-        dataPersistence.update(currentCardDeck!, with: cardDeck)
+    func flashCardWasDeleted(_ sender: FlashCardCollectionViewController, cardDeck: CardDeck, indexPathRow: Int) {
+        
     }
+    
+
+
 }
