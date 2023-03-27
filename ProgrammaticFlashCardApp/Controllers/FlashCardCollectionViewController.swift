@@ -30,9 +30,9 @@ class FlashCardCollectionViewController: UIViewController {
     public weak var delegate: FlashCardCollectionViewControllerDelegate?
     private let flashCardView = FlashCardsCollectionView()
     private var barButton: UIBarButtonItem!
-    private var cellColor: UIColor? = .systemBlue.withAlphaComponent(0.6) {
+    private var cellColor: Int? {
         didSet {
-            // TODO: User defaults here 
+            
         }
     }
     
@@ -59,6 +59,7 @@ class FlashCardCollectionViewController: UIViewController {
         navigationItem.title = "\(cardDeck.title) (\(cardDeck.flashCards.count))"
         barButton = UIBarButtonItem(image: UIImage(systemName: "plus"), style: .plain, target: self, action: #selector(addCardButtonPressed))
         navigationItem.rightBarButtonItem = barButton
+        cellColor = UserDefaults.standard.object(forKey: UserPreferences.index) as? Int ?? 0
     }
     
     @objc private func addCardButtonPressed(_ sender: UIBarButtonItem) {
@@ -77,6 +78,22 @@ class FlashCardCollectionViewController: UIViewController {
         present(viewController, animated: true)
     }
     
+    private func configureCellColor(_ index: Int) -> UIColor? {
+        switch index {
+        case 0:
+            return UIColor.systemBlue.withAlphaComponent(0.6)
+        case 1:
+            return UIColor.systemGreen.withAlphaComponent(0.6)
+        case 2:
+            return UIColor.systemYellow.withAlphaComponent(0.6)
+        case 3:
+            return UIColor.systemRed.withAlphaComponent(0.6)
+        default:
+            return UIColor.systemBlue.withAlphaComponent(0.6)
+        }
+    }
+    
+    
 }
 extension FlashCardCollectionViewController: UICollectionViewDataSource {
     
@@ -91,7 +108,7 @@ extension FlashCardCollectionViewController: UICollectionViewDataSource {
         let flashcard = cardDeck.flashCards[indexPath.row]
         cell.layer.cornerRadius = 16
         cell.configureCell(for: flashcard)
-        cell.backgroundColor = cellColor
+        cell.backgroundColor = configureCellColor(cellColor!)
         return cell
     }
     

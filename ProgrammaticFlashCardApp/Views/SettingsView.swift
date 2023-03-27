@@ -7,6 +7,10 @@
 
 import UIKit
 
+struct UserPreferences {
+    static let index = "SegmentIndex"
+}
+
 class SettingsView: UIView {
     
     public lazy var colorLabel: UILabel = {
@@ -29,7 +33,6 @@ class SettingsView: UIView {
     
     public lazy var colorSegmentControl: UISegmentedControl = {
         let segmentControl = UISegmentedControl(items: ["Blue", "Green", "Yellow", "Red"])
-        segmentControl.selectedSegmentIndex = 0
         segmentControl.translatesAutoresizingMaskIntoConstraints = false
         segmentControl.setTitle("Blue", forSegmentAt: 0)
         segmentControl.setTitle("Green", forSegmentAt: 1)
@@ -41,7 +44,7 @@ class SettingsView: UIView {
     override func layoutSubviews() {
         super.layoutSubviews()
         colorView.layer.cornerRadius = 16
-        configureColorViewBackgroundColor(colorSegmentControl)
+        configureColorViewBackgroundColor(colorSegmentControl.selectedSegmentIndex)
     }
 
     override init(frame: CGRect) {
@@ -60,16 +63,13 @@ class SettingsView: UIView {
         setSegmentControlConstraints()
     }
     
-    
-    
     private func setLabelConstraints() {
         addSubview(colorLabel)
         NSLayoutConstraint.activate([
             colorLabel.centerXAnchor.constraint(equalTo: centerXAnchor),
-            colorLabel.topAnchor.constraint(equalTo: topAnchor, constant: 20)
+            colorLabel.topAnchor.constraint(equalTo: topAnchor, constant: 40)
         ])
     }
-    
     
     private func setColorViewConstraints() {
         addSubview(colorView)
@@ -89,16 +89,20 @@ class SettingsView: UIView {
         ])
     }
     
-    public func configureColorViewBackgroundColor(_ sender: UISegmentedControl) {
-        switch sender.selectedSegmentIndex {
+    public func configureColorViewBackgroundColor(_ index: Int = 0) {
+        switch index {
         case 0:
             colorView.backgroundColor = UIColor.systemBlue.withAlphaComponent(0.6)
+            colorSegmentControl.selectedSegmentIndex = 0
         case 1:
             colorView.backgroundColor = UIColor.systemGreen.withAlphaComponent(0.6)
+            colorSegmentControl.selectedSegmentIndex = 1
         case 2:
             colorView.backgroundColor = UIColor.systemYellow.withAlphaComponent(0.6)
+            colorSegmentControl.selectedSegmentIndex = 2
         case 3:
             colorView.backgroundColor = UIColor.systemRed.withAlphaComponent(0.6)
+            colorSegmentControl.selectedSegmentIndex = 3
         default:
             return
         }
