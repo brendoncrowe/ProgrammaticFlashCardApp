@@ -7,8 +7,19 @@
 
 import UIKit
 
+protocol FlashCardCellDelegate: AnyObject {
+    func didSelectMoreButton(_ savedFlashCardCell: FlashCardCell, card: FlashCard)
+}
+
+
 
 class FlashCardCell: UICollectionViewCell {
+    
+    // step 2: custom protocol
+    weak var delegate: FlashCardCellDelegate?
+    
+    // to keep track of the current cell's article
+    private var currentCard: FlashCard!
     
     public lazy var flashCardQuestionLabel: UILabel = {
         let label = UILabel()
@@ -20,6 +31,15 @@ class FlashCardCell: UICollectionViewCell {
         return label
     }()
     
+    public lazy var moreButton: UIButton = {
+        let button = UIButton(type: .system)
+        button.translatesAutoresizingMaskIntoConstraints = false
+        button.setImage(UIImage(systemName: "ellipsis.circle"), for: .normal)
+        button.addTarget(self, action: #selector(moreButtonPressed(_:)), for: .touchUpInside)
+        button.isHidden = true
+        button.isEnabled = false
+        return button
+    }()
     
     public lazy var flashCardAnswerLabel: UILabel = {
         let answer = UILabel()
@@ -31,6 +51,9 @@ class FlashCardCell: UICollectionViewCell {
         return answer
     }()
     
+    @objc private func moreButtonPressed(_ sender: UIButton) {
+        delegate?.didSelectMoreButton(self, card: currentCard)
+    }
     
     override init(frame: CGRect) {
         super.init(frame: frame)
@@ -43,9 +66,21 @@ class FlashCardCell: UICollectionViewCell {
     }
     
     private func commonInit() {
+        setupMoreButtonConstraints()
         setFlashCardQuestionLabel()
         setFlashCardAnswerLabel()
     }
+    
+    private func setupMoreButtonConstraints() {
+        addSubview(moreButton)
+        NSLayoutConstraint.activate([
+            moreButton.topAnchor.constraint(equalTo: topAnchor),
+            moreButton.trailingAnchor.constraint(equalTo: trailingAnchor),
+            moreButton.heightAnchor.constraint(equalToConstant: 44),
+            moreButton.widthAnchor.constraint(equalTo: moreButton.heightAnchor)
+        ])
+    }
+    
     
     private func setFlashCardQuestionLabel() {
         addSubview(flashCardQuestionLabel)
@@ -68,6 +103,7 @@ class FlashCardCell: UICollectionViewCell {
     }
     
     public func configureCell(for flashCard: FlashCard) {
+        currentCard = flashCard
         flashCardQuestionLabel.text = flashCard.question
         flashCardAnswerLabel.text = flashCard.answer
     }

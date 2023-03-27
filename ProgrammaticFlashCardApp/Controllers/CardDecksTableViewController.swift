@@ -35,6 +35,7 @@ class CardDecksTableViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         configureViewController()
+        loadDecks()
     }
     
     private func configureViewController() {
@@ -48,6 +49,10 @@ class CardDecksTableViewController: UIViewController {
         navigationItem.rightBarButtonItem = settingsButton
         cardDeckView.tableView.dataSource = self
         cardDeckView.tableView.delegate = self
+    }
+    
+    private func loadDecks() {
+        cardDecks = try! dataPersistence.loadItems()
     }
     
     @objc private func settingsButtonPressed(_ sender: UIBarButtonItem) {
@@ -120,6 +125,11 @@ extension CardDecksTableViewController: UITableViewDelegate {
             if editingStyle == .delete {
                 tableView.deleteRows(at: [indexPath], with: .automatic)
                 cardDecks.remove(at: indexPath.row)
+                do {
+                    try dataPersistence.deleteItem(at: indexPath.row)
+                } catch {
+                    print("Error deleting: \(error)")
+                }
             }
         }
     }
@@ -128,6 +138,11 @@ extension CardDecksTableViewController: UITableViewDelegate {
 extension CardDecksTableViewController: CreateCardDeckViewControllerDelegate {
     func didCreate(_ sender: CreateCardDeckViewController, cardDeck: CardDeck) {
         cardDecks.append(cardDeck)
+        do {
+            try dataPersistence.createItem(cardDeck)
+        } catch {
+            print("Error saving: \(error)")
+        }
     }
 }
 
@@ -135,5 +150,12 @@ extension CardDecksTableViewController: FlashCardCollectionViewControllerDelegat
     func flashCardWasAdded(_ sender: FlashCardCollectionViewController, cardDeck: CardDeck) {
         guard let index = cardDecks.firstIndex(of: currentCardDeck!) else { return }
         cardDecks[index] = cardDeck
+        dataPersistence.update(currentCardDeck!, with: cardDeck)
+    }
+    
+    func flashCardWasDeleted(_ sender: FlashCardCollectionViewController, cardDeck: CardDeck) {
+        guard let index = cardDecks.firstIndex(of: currentCardDeck!) else { return }
+        cardDecks[index] = cardDeck
+        dataPersistence.update(currentCardDeck!, with: cardDeck)
     }
 }

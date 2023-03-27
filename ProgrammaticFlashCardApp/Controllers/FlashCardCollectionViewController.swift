@@ -9,6 +9,7 @@ import UIKit
 
 protocol FlashCardCollectionViewControllerDelegate: NSObject {
     func flashCardWasAdded(_ sender: FlashCardCollectionViewController, cardDeck: CardDeck)
+    func flashCardWasDeleted(_ sender: FlashCardCollectionViewController, cardDeck: CardDeck)
 }
 
 class FlashCardCollectionViewController: UIViewController {
@@ -92,9 +93,8 @@ class FlashCardCollectionViewController: UIViewController {
             return UIColor.systemBlue.withAlphaComponent(0.6)
         }
     }
-    
-    
 }
+
 extension FlashCardCollectionViewController: UICollectionViewDataSource {
     
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
@@ -107,12 +107,11 @@ extension FlashCardCollectionViewController: UICollectionViewDataSource {
         }
         let flashcard = cardDeck.flashCards[indexPath.row]
         cell.layer.cornerRadius = 16
+        cell.delegate = self
         cell.configureCell(for: flashcard)
         cell.backgroundColor = configureCellColor(cellColor!)
         return cell
     }
-    
-    
 }
 
 extension FlashCardCollectionViewController: UICollectionViewDelegateFlowLayout {
@@ -122,19 +121,23 @@ extension FlashCardCollectionViewController: UICollectionViewDelegateFlowLayout 
         guard let flashCard = collectionView.cellForItem(at: indexPath) as? FlashCardCell else {
             return
         }
-            if flashCard.flashCardAnswerLabel.isHidden == true {
-                UIView.transition(with: collectionView.cellForItem(at: indexPath)!, duration: 0.4, options: [.transitionFlipFromRight, .curveEaseInOut]) {
-                    flashCard.flashCardAnswerLabel.isHidden = false
-                    flashCard.flashCardQuestionLabel.isHidden = true
-                }
-            } else {
-                UIView.transition(with: collectionView.cellForItem(at: indexPath)!, duration: 0.4, options: [.transitionFlipFromLeft, .curveEaseInOut]) {
-                    flashCard.flashCardQuestionLabel.isHidden = false
-                    flashCard.flashCardAnswerLabel.isHidden = true
-                }
+        if flashCard.flashCardAnswerLabel.isHidden == true {
+            UIView.transition(with: collectionView.cellForItem(at: indexPath)!, duration: 0.4, options: [.transitionFlipFromRight, .curveEaseInOut]) {
+                flashCard.flashCardAnswerLabel.isHidden = false
+                flashCard.moreButton.isHidden = false
+                flashCard.moreButton.isEnabled = true
+                flashCard.flashCardQuestionLabel.isHidden = true
+            }
+        } else {
+            UIView.transition(with: collectionView.cellForItem(at: indexPath)!, duration: 0.4, options: [.transitionFlipFromLeft, .curveEaseInOut]) {
+                flashCard.flashCardQuestionLabel.isHidden = false
+                flashCard.moreButton.isHidden = true
+                flashCard.moreButton.isEnabled = false
+                flashCard.flashCardAnswerLabel.isHidden = true
             }
         }
     }
+}
 
 
 extension FlashCardCollectionViewController: CreateFlashCardViewControllerDelegate {
@@ -142,4 +145,24 @@ extension FlashCardCollectionViewController: CreateFlashCardViewControllerDelega
         cardDeck.flashCards.append(flashCard)
         self.delegate?.flashCardWasAdded(self, cardDeck: cardDeck)
     }
+}
+
+
+extension FlashCardCollectionViewController: FlashCardCellDelegate {
+    
+    func didSelectMoreButton(_ savedFlashCardCell: FlashCardCell, card: FlashCard) {
+        let alertController = UIAlertController(title: nil, message: nil, preferredStyle: .actionSheet)
+        let cancelAction = UIAlertAction(title: "cancel", style: .cancel)
+        let editAction = UIAlertAction(title: "edit", style: .default)
+        let deleteAction = UIAlertAction(title: "delete", style: .destructive) { [weak self] alertAction in
+            let index = self?.cardDeck.flashCards.firstIndex(of: card)
+            self?.cardDeck.flashCards.remove(at: index!)
+            self?.delegate?.flashCardWasDeleted(self!, cardDeck: self!.cardDeck)
+        }
+        alertController.addAction(editAction)
+        alertController.addAction(deleteAction)
+        alertController.addAction(cancelAction)
+        present(alertController, animated: true)
+    }
+    
 }
