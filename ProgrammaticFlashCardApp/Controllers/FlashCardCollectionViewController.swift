@@ -60,19 +60,31 @@ class FlashCardCollectionViewController: UIViewController {
     }
     
     @objc private func addCardButtonPressed(_ sender: UIBarButtonItem) {
-        presentViewController()
+        presentViewController(nil)
     }
     
-    private func presentViewController() {
-        let viewController = CreateFlashCardViewController()
-        if let sheet = viewController.sheetPresentationController {
-            sheet.detents = [ .medium()]
-            sheet.prefersGrabberVisible = true
-            sheet.preferredCornerRadius = 24
-            sheet.largestUndimmedDetentIdentifier = .large
+    private func presentViewController(_ card: FlashCard?) {
+        if let card = card {
+            let viewController = CreateFlashCardViewController(flashCard: card)
+            if let sheet = viewController?.sheetPresentationController {
+                sheet.detents = [ .medium()]
+                sheet.prefersGrabberVisible = true
+                sheet.preferredCornerRadius = 24
+                sheet.largestUndimmedDetentIdentifier = .large
+            }
+            viewController?.delegate = self
+            present(viewController!, animated: true)
+        } else {
+            let viewController = CreateFlashCardViewController(flashCard: nil)
+            if let sheet = viewController?.sheetPresentationController {
+                sheet.detents = [ .medium()]
+                sheet.prefersGrabberVisible = true
+                sheet.preferredCornerRadius = 24
+                sheet.largestUndimmedDetentIdentifier = .large
+            }
+            viewController?.delegate = self
+            present(viewController!, animated: true)
         }
-        viewController.delegate = self
-        present(viewController, animated: true)
     }
     
     private func configureCellColor(_ index: Int) -> UIColor? {
@@ -150,7 +162,9 @@ extension FlashCardCollectionViewController: FlashCardCellDelegate {
     func didSelectMoreButton(_ savedFlashCardCell: FlashCardCell, card: FlashCard) {
         let alertController = UIAlertController(title: nil, message: nil, preferredStyle: .actionSheet)
         let cancelAction = UIAlertAction(title: "cancel", style: .cancel)
-        let editAction = UIAlertAction(title: "edit", style: .default)
+        let editAction = UIAlertAction(title: "edit", style: .default) { [weak self] _ in
+            self?.presentViewController(card)
+        }
         let deleteAction = UIAlertAction(title: "delete", style: .destructive) { [weak self] _ in
             self?.deleteFlashCard(card)
         }

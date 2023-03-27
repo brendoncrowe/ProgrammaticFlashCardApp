@@ -13,7 +13,7 @@ class CreateCardDeckView: UIView {
         let label = UILabel()
         label.translatesAutoresizingMaskIntoConstraints = false
         label.font = UIFont.preferredFont(forTextStyle: .title1)
-        label.text = "Create a new card deck"
+        label.text = "create a new card deck"
         label.alpha = 0.6
         return label
     }()
@@ -21,6 +21,7 @@ class CreateCardDeckView: UIView {
     public lazy var deckTitleTextField: UITextField = {
         let tf = UITextField()
         tf.translatesAutoresizingMaskIntoConstraints = false
+        tf.font = UIFont.preferredFont(forTextStyle: .body)
         tf.borderStyle = .roundedRect
         tf.placeholder = "enter deck title"
         return tf
@@ -29,6 +30,7 @@ class CreateCardDeckView: UIView {
     public lazy var deckDescriptionTextField: UITextField = {
         let tf = UITextField()
         tf.translatesAutoresizingMaskIntoConstraints = false
+        tf.font = UIFont.preferredFont(forTextStyle: .body)
         tf.borderStyle = .roundedRect
         tf.placeholder = "enter deck description"
         return tf

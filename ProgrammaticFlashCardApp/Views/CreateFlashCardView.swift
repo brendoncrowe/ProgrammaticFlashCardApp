@@ -22,7 +22,9 @@ class CreateFlashCardView: UIView {
         let tf = UITextField()
         tf.translatesAutoresizingMaskIntoConstraints = false
         tf.borderStyle = .roundedRect
-        tf.placeholder = "enter card question"
+        tf.backgroundColor = .systemBackground
+        tf.font = UIFont.preferredFont(forTextStyle: .body)
+        tf.placeholder = "enter card title"
         return tf
     }()
     

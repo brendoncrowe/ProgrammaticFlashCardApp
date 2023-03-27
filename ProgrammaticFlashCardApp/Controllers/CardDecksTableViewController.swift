@@ -20,6 +20,7 @@ class CardDecksTableViewController: UIViewController {
                 // remove empty view
                 cardDeckView.tableView.backgroundView = nil
             }
+            self.navigationItem.title = "Card Decks (\(cardDecks.count))"
             cardDeckView.tableView.reloadData()
         }
     }
@@ -39,7 +40,6 @@ class CardDecksTableViewController: UIViewController {
     
     private func configureViewController() {
         view.backgroundColor = .systemBackground
-        navigationItem.title = "Card Decks"
         addCardDeckButton = UIBarButtonItem(image: UIImage(systemName: "plus"), style: .plain, target: self, action: #selector(addCardDeckButtonPressed))
         addCardDeckButton.tag = 0
         settingsButton = UIBarButtonItem(image: UIImage(systemName: "gear"), style: .plain, target: self, action: #selector(settingsButtonPressed(_:)))

@@ -15,18 +15,38 @@ class CreateFlashCardViewController: UIViewController {
     
     private var createCardView = CreateFlashCardView()
     public weak var delegate: CreateFlashCardViewControllerDelegate?
+    private var flashCard: FlashCard?
 
     override func loadView() {
         super.loadView()
         view = createCardView
     }
-
+    
+    init?(flashCard: FlashCard?) {
+        self.flashCard = flashCard
+        super.init(nibName: nil, bundle: nil)
+    }
+    
+    required init?(coder: NSCoder) {
+        fatalError("init(coder:) has not been implemented")
+    }
+    
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         view.backgroundColor = .systemBackground
         updateSaveButtonState()
         createCardView.createCardButton.addTarget(self, action: #selector(createButtonTapped), for: .touchUpInside)
         createCardView.cardQuestionTextField.delegate = self
+        configureUI()
+    }
+    
+    private func configureUI() {
+        if flashCard != nil {
+            createCardView.cardQuestionTextField.text = flashCard?.question
+            createCardView.cardAnswerTextView.text = flashCard?.answer
+            updateSaveButtonState()
+        }
     }
     
     
