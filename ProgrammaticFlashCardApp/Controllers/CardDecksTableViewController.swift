@@ -10,6 +10,7 @@ import UIKit
 class CardDecksTableViewController: UIViewController {
     
     private let cardDeckView = CardDeckTableView()
+    private var dataPersistence = DataPersistence<CardDeck>(filename: "cardDecks.plist")
     private var currentCardDeck: CardDeck?
     private var cardDecks = [CardDeck]() {
         didSet {
@@ -24,6 +25,7 @@ class CardDecksTableViewController: UIViewController {
         }
     }
     private var addCardDeckButton: UIBarButtonItem!
+    private var settingsButton: UIBarButtonItem!
     
     override func loadView() {
         super.loadView()
@@ -39,26 +41,47 @@ class CardDecksTableViewController: UIViewController {
         view.backgroundColor = .systemBackground
         navigationItem.title = "Card Decks"
         addCardDeckButton = UIBarButtonItem(image: UIImage(systemName: "plus"), style: .plain, target: self, action: #selector(addCardDeckButtonPressed))
-        navigationItem.rightBarButtonItem = addCardDeckButton
+        addCardDeckButton.tag = 0
+        settingsButton = UIBarButtonItem(image: UIImage(systemName: "gear"), style: .plain, target: self, action: #selector(settingsButtonPressed(_:)))
+        settingsButton.tag = 1
+        navigationItem.leftBarButtonItem = addCardDeckButton
+        navigationItem.rightBarButtonItem = settingsButton
         cardDeckView.tableView.dataSource = self
         cardDeckView.tableView.delegate = self
-        cardDecks = CardDeck.dummyData
+    }
+    
+    @objc private func settingsButtonPressed(_ sender: UIBarButtonItem) {
+        presentViewController(for: sender)
     }
     
     @objc private func addCardDeckButtonPressed(_ sender: UIBarButtonItem) {
-        presentViewController()
+        presentViewController(for: sender)
     }
     
-    private func presentViewController() {
-        let viewController = CreateCardDeckViewController()
-        if let sheet = viewController.sheetPresentationController {
-            sheet.detents = [ .medium()]
-            sheet.prefersGrabberVisible = true
-            sheet.preferredCornerRadius = 24
-            sheet.largestUndimmedDetentIdentifier = .large
+    private func presentViewController(for sender: UIBarButtonItem) {
+        switch sender.tag {
+        case 0:
+            let viewController = CreateCardDeckViewController()
+            if let sheet = viewController.sheetPresentationController {
+                sheet.detents = [ .medium()]
+                sheet.prefersGrabberVisible = true
+                sheet.preferredCornerRadius = 24
+                sheet.largestUndimmedDetentIdentifier = .large
+            }
+            viewController.delegate = self
+            present(viewController, animated: true)
+        case 1:
+            let viewController = SettingsViewController()
+            if let sheet = viewController.sheetPresentationController {
+                sheet.detents = [ .medium()]
+                sheet.prefersGrabberVisible = true
+                sheet.preferredCornerRadius = 24
+                sheet.largestUndimmedDetentIdentifier = .large
+            }
+            present(viewController, animated: true)
+        default:
+            return
         }
-        viewController.delegate = self
-        present(viewController, animated: true)
     }
 }
 
@@ -86,10 +109,19 @@ extension CardDecksTableViewController: UITableViewDelegate {
         tableView.deselectRow(at: indexPath, animated: true)
         let cardDeck = cardDecks[indexPath.row]
         currentCardDeck = cardDeck
-        let flashCardVC = FlashCardCollectionViewController(cardDeck: cardDeck)
+        let flashCardVC = FlashCardCollectionViewController(dataPersistence: dataPersistence, cardDeck: cardDeck)
         flashCardVC.delegate = self
         flashCardVC.cardDeck = cardDecks[indexPath.row]
         navigationController?.pushViewController(flashCardVC, animated: true)
+    }
+    
+    func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCell.EditingStyle, forRowAt indexPath: IndexPath) {
+        tableView.performBatchUpdates {
+            if editingStyle == .delete {
+                tableView.deleteRows(at: [indexPath], with: .automatic)
+                cardDecks.remove(at: indexPath.row)
+            }
+        }
     }
 }
 

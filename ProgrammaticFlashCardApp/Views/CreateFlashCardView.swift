@@ -30,6 +30,7 @@ class CreateFlashCardView: UIView {
         let tv = UITextView()
         tv.translatesAutoresizingMaskIntoConstraints = false
         tv.layer.cornerRadius = 6
+        tv.font = UIFont.preferredFont(forTextStyle: .body)
         tv.layer.borderColor = UIColor.systemGray3.cgColor
         tv.layer.borderWidth = 0.4
         return tv

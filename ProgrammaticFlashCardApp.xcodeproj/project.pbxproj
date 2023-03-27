@@ -24,6 +24,8 @@
 		40A5E44329CB820C00BE6732 /* FileManagerExtenion.swift in Sources */ = {isa = PBXBuildFile; fileRef = 40A5E44229CB820C00BE6732 /* FileManagerExtenion.swift */; };
 		40A5E44529CB914D00BE6732 /* CreateCardDeckView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 40A5E44429CB914D00BE6732 /* CreateCardDeckView.swift */; };
 		40A5E44729CBD6EB00BE6732 /* FlashCardsCollectionView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 40A5E44629CBD6EB00BE6732 /* FlashCardsCollectionView.swift */; };
+		40C103CD29D1F1D900E2DDE1 /* SettingsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 40C103CC29D1F1D900E2DDE1 /* SettingsView.swift */; };
+		40C103CF29D1F34300E2DDE1 /* SettingsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 40C103CE29D1F34300E2DDE1 /* SettingsViewController.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -46,6 +48,8 @@
 		40A5E44229CB820C00BE6732 /* FileManagerExtenion.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FileManagerExtenion.swift; sourceTree = "<group>"; };
 		40A5E44429CB914D00BE6732 /* CreateCardDeckView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CreateCardDeckView.swift; sourceTree = "<group>"; };
 		40A5E44629CBD6EB00BE6732 /* FlashCardsCollectionView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FlashCardsCollectionView.swift; sourceTree = "<group>"; };
+		40C103CC29D1F1D900E2DDE1 /* SettingsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsView.swift; sourceTree = "<group>"; };
+		40C103CE29D1F34300E2DDE1 /* SettingsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsViewController.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -108,6 +112,7 @@
 				40A5E44429CB914D00BE6732 /* CreateCardDeckView.swift */,
 				40A5E44629CBD6EB00BE6732 /* FlashCardsCollectionView.swift */,
 				405CB06E29CBE84E00E3D161 /* CreateFlashCardView.swift */,
+				40C103CC29D1F1D900E2DDE1 /* SettingsView.swift */,
 				409D99FB29CCD7E5004C7CD3 /* EmptyView.swift */,
 			);
 			path = Views;
@@ -120,6 +125,7 @@
 				40A5E43A29CB7C8900BE6732 /* CreateCardDeckViewController.swift */,
 				40A5E43C29CB7E5B00BE6732 /* FlashCardCollectionViewController.swift */,
 				405CB07029CBE91E00E3D161 /* CreateFlashCardViewController.swift */,
+				40C103CE29D1F34300E2DDE1 /* SettingsViewController.swift */,
 			);
 			path = Controllers;
 			sourceTree = "<group>";
@@ -227,8 +233,10 @@
 				40A5E41D29CB6E3900BE6732 /* AppDelegate.swift in Sources */,
 				40A5E44329CB820C00BE6732 /* FileManagerExtenion.swift in Sources */,
 				40A5E41F29CB6E3900BE6732 /* SceneDelegate.swift in Sources */,
+				40C103CD29D1F1D900E2DDE1 /* SettingsView.swift in Sources */,
 				40A5E43B29CB7C8900BE6732 /* CreateCardDeckViewController.swift in Sources */,
 				405CB07129CBE91E00E3D161 /* CreateFlashCardViewController.swift in Sources */,
+				40C103CF29D1F34300E2DDE1 /* SettingsViewController.swift in Sources */,
 				40A5E44029CB81ED00BE6732 /* DataPersistence .swift in Sources */,
 				40A5E43D29CB7E5B00BE6732 /* FlashCardCollectionViewController.swift in Sources */,
 				409D99FC29CCD7E5004C7CD3 /* EmptyView.swift in Sources */,

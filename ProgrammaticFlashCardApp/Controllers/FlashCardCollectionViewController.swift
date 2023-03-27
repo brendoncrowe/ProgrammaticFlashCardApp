@@ -26,6 +26,7 @@ class FlashCardCollectionViewController: UIViewController {
             flashCardView.collectionView.reloadData()
         }
     }
+    public var dataPersistence: DataPersistence<CardDeck>
     public weak var delegate: FlashCardCollectionViewControllerDelegate?
     private let flashCardView = FlashCardsCollectionView()
     private var barButton: UIBarButtonItem!
@@ -42,8 +43,9 @@ class FlashCardCollectionViewController: UIViewController {
         view = flashCardView
     }
     
-    init(cardDeck: CardDeck) {
+    init(dataPersistence: DataPersistence<CardDeck>, cardDeck: CardDeck) {
         self.cardDeck = cardDeck
+        self.dataPersistence = dataPersistence
         super.init(nibName: nil, bundle: nil)
     }
     
