@@ -24,7 +24,6 @@ class FlashCardCollectionViewController: UIViewController {
                 flashCardView.collectionView.backgroundView = nil
             }
             self.navigationItem.title = "\(cardDeck.title) (\(cardDeck.flashCards.count))"
-            flashCardView.collectionView.reloadData()
         }
     }
     public var dataPersistence: DataPersistence<CardDeck>
@@ -140,6 +139,7 @@ extension FlashCardCollectionViewController: UICollectionViewDelegateFlowLayout 
 extension FlashCardCollectionViewController: CreateFlashCardViewControllerDelegate {
     func didCreate(_ sender: CreateFlashCardViewController, flashCard: FlashCard) {
         cardDeck.flashCards.append(flashCard)
+        flashCardView.collectionView.reloadData()
         self.delegate?.flashCardWasAdded(self, cardDeck: cardDeck, indexPathRow: indexPath)
     }
 }
@@ -151,9 +151,8 @@ extension FlashCardCollectionViewController: FlashCardCellDelegate {
         let alertController = UIAlertController(title: nil, message: nil, preferredStyle: .actionSheet)
         let cancelAction = UIAlertAction(title: "cancel", style: .cancel)
         let editAction = UIAlertAction(title: "edit", style: .default)
-        let deleteAction = UIAlertAction(title: "delete", style: .destructive) { alertAction in
-
-
+        let deleteAction = UIAlertAction(title: "delete", style: .destructive) { [weak self] _ in
+            self?.deleteFlashCard(card)
         }
         alertController.addAction(editAction)
         alertController.addAction(deleteAction)
@@ -161,4 +160,10 @@ extension FlashCardCollectionViewController: FlashCardCellDelegate {
         present(alertController, animated: true)
     }
     
+    private func deleteFlashCard(_ card: FlashCard) {
+        guard let index = cardDeck.flashCards.firstIndex(of: card) else { return }
+        cardDeck.flashCards.remove(at: index)
+        flashCardView.collectionView.reloadData()
+        delegate?.flashCardWasDeleted(self, cardDeck: cardDeck, indexPathRow: indexPath)
+    }
 }

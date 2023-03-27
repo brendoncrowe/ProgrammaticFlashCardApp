@@ -115,7 +115,7 @@ extension CardDecksTableViewController: UITableViewDelegate {
         let flashCardVC = FlashCardCollectionViewController(dataPersistence: dataPersistence, cardDeck: cardDeck)
         flashCardVC.delegate = self
         flashCardVC.indexPath = indexPath.row
-        flashCardVC.cardDeck = cardDecks[indexPath.row]
+        flashCardVC.cardDeck = cardDeck
         navigationController?.pushViewController(flashCardVC, animated: true)
     }
     
@@ -147,14 +147,15 @@ extension CardDecksTableViewController: CreateCardDeckViewControllerDelegate {
 
 extension CardDecksTableViewController: FlashCardCollectionViewControllerDelegate {
     func flashCardWasAdded(_ sender: FlashCardCollectionViewController, cardDeck: CardDeck, indexPathRow: Int) {
-        cardDecks[indexPathRow] = cardDeck
-        dataPersistence.update(cardDecks[indexPathRow], with: cardDeck)
+        // set old card deck to new card deck
+        let oldCardDeck = cardDecks[indexPathRow]
+        dataPersistence.update(oldCardDeck, with: cardDeck)
+        loadDecks()
     }
     
     func flashCardWasDeleted(_ sender: FlashCardCollectionViewController, cardDeck: CardDeck, indexPathRow: Int) {
-        
+        let oldCardDeck = cardDecks[indexPathRow]
+        dataPersistence.update(oldCardDeck, with: cardDeck)
+        loadDecks()
     }
-    
-
-
 }
