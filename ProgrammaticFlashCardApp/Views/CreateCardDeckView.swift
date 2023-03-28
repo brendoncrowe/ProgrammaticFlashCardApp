@@ -40,7 +40,7 @@ class CreateCardDeckView: UIView {
     public lazy var createDeckButton: UIButton = {
         let button = UIButton(type: .system)
         button.translatesAutoresizingMaskIntoConstraints = false
-        button.setTitle("Create Deck", for: .normal)
+        button.setTitle("Create", for: .normal)
         button.setTitleColor(.white, for: .normal)
         button.titleLabel?.font = UIFont.preferredFont(forTextStyle: .title3)
         button.backgroundColor = .systemBlue
@@ -70,7 +70,8 @@ class CreateCardDeckView: UIView {
         NSLayoutConstraint.activate([
             deckTitleTextField.leadingAnchor.constraint(equalTo: leadingAnchor, constant: 40),
             deckTitleTextField.topAnchor.constraint(equalTo: titleLabel.bottomAnchor, constant: 20),
-            deckTitleTextField.trailingAnchor.constraint(equalTo: trailingAnchor, constant: -40)
+            deckTitleTextField.trailingAnchor.constraint(equalTo: trailingAnchor, constant: -40),
+            deckTitleTextField.heightAnchor.constraint(equalToConstant: 50)
         
         ])
     }
@@ -80,7 +81,8 @@ class CreateCardDeckView: UIView {
         NSLayoutConstraint.activate([
             deckDescriptionTextField.leadingAnchor.constraint(equalTo: leadingAnchor, constant: 40),
             deckDescriptionTextField.topAnchor.constraint(equalTo: deckTitleTextField.bottomAnchor, constant: 16),
-            deckDescriptionTextField.trailingAnchor.constraint(equalTo: trailingAnchor, constant: -40)
+            deckDescriptionTextField.trailingAnchor.constraint(equalTo: trailingAnchor, constant: -40),
+            deckDescriptionTextField.heightAnchor.constraint(equalToConstant: 50)
         ])
     }
     
@@ -88,7 +90,7 @@ class CreateCardDeckView: UIView {
         addSubview(titleLabel)
         NSLayoutConstraint.activate([
             titleLabel.topAnchor.constraint(equalTo: safeAreaLayoutGuide.topAnchor, constant: 30),
-            titleLabel.centerXAnchor.constraint(equalTo: centerXAnchor)
+            titleLabel.centerXAnchor.constraint(equalTo: centerXAnchor),
         ])
     }
     
@@ -96,10 +98,10 @@ class CreateCardDeckView: UIView {
     private func setButtonLayoutConstraints() {
         addSubview(createDeckButton)
         NSLayoutConstraint.activate([
-            createDeckButton.topAnchor.constraint(equalTo: deckDescriptionTextField.bottomAnchor, constant: 20),
+            createDeckButton.topAnchor.constraint(equalTo: deckDescriptionTextField.bottomAnchor, constant: 30),
             createDeckButton.centerXAnchor.constraint(equalTo: centerXAnchor),
-            createDeckButton.leadingAnchor.constraint(equalTo: leadingAnchor, constant: 120),
-            createDeckButton.trailingAnchor.constraint(equalTo: trailingAnchor, constant: -120),
+            createDeckButton.leadingAnchor.constraint(equalTo: leadingAnchor, constant: 130),
+            createDeckButton.trailingAnchor.constraint(equalTo: trailingAnchor, constant: -130),
             createDeckButton.heightAnchor.constraint(equalToConstant: 50)
         ])
     }

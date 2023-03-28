@@ -106,6 +106,13 @@ extension CreateCardDeckViewController: UITextFieldDelegate {
         }
         updateSaveButtonState()
     }
+    
+    func textFieldShouldReturn(_ textField: UITextField) -> Bool {
+        textField.resignFirstResponder()
+        createCardDeck()
+        return true
+    }
+    
 }
 
 

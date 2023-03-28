@@ -16,7 +16,7 @@ class SettingsView: UIView {
     public lazy var colorLabel: UILabel = {
         let label = UILabel()
         label.translatesAutoresizingMaskIntoConstraints = false
-        label.font = UIFont.preferredFont(forTextStyle: .title3)
+        label.font = UIFont.preferredFont(forTextStyle: .title2)
         label.alpha = 0.5
         label.numberOfLines = 1
         label.text = "choose a card color"
@@ -67,7 +67,7 @@ class SettingsView: UIView {
         addSubview(colorLabel)
         NSLayoutConstraint.activate([
             colorLabel.centerXAnchor.constraint(equalTo: centerXAnchor),
-            colorLabel.topAnchor.constraint(equalTo: topAnchor, constant: 40)
+            colorLabel.topAnchor.constraint(equalTo: topAnchor, constant: 30)
         ])
     }
     
@@ -76,7 +76,7 @@ class SettingsView: UIView {
         NSLayoutConstraint.activate([
             colorView.heightAnchor.constraint(equalTo: heightAnchor, multiplier: 0.4),
             colorView.widthAnchor.constraint(equalTo:widthAnchor, multiplier: 0.8),
-            colorView.topAnchor.constraint(equalTo: colorLabel.bottomAnchor, constant: 8),
+            colorView.topAnchor.constraint(equalTo: colorLabel.bottomAnchor, constant: 12),
             colorView.centerXAnchor.constraint(equalTo: centerXAnchor)
         ])
     }

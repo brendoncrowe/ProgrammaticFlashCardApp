@@ -13,7 +13,7 @@ class CreateFlashCardView: UIView {
         let label = UILabel()
         label.translatesAutoresizingMaskIntoConstraints = false
         label.font = UIFont.preferredFont(forTextStyle: .title1)
-        label.text = "add a flash card"
+        label.text = "create a flash card"
         label.alpha = 0.6
         return label
     }()
@@ -41,7 +41,7 @@ class CreateFlashCardView: UIView {
     public lazy var createCardButton: UIButton = {
         let button = UIButton(type: .system)
         button.translatesAutoresizingMaskIntoConstraints = false
-        button.setTitle("Create Card", for: .normal)
+        button.setTitle("Create", for: .normal)
         button.setTitleColor(.white, for: .normal)
         button.titleLabel?.font = UIFont.preferredFont(forTextStyle: .title3)
         button.backgroundColor = .systemBlue
@@ -98,10 +98,10 @@ class CreateFlashCardView: UIView {
     private func setButtonLayoutConstraints() {
         addSubview(createCardButton)
         NSLayoutConstraint.activate([
-            createCardButton.topAnchor.constraint(equalTo: cardAnswerTextView.bottomAnchor, constant: 20),
+            createCardButton.topAnchor.constraint(equalTo: cardAnswerTextView.bottomAnchor, constant: 15),
             createCardButton.centerXAnchor.constraint(equalTo: centerXAnchor),
-            createCardButton.leadingAnchor.constraint(equalTo: leadingAnchor, constant: 120),
-            createCardButton.trailingAnchor.constraint(equalTo: trailingAnchor, constant: -120),
+            createCardButton.leadingAnchor.constraint(equalTo: leadingAnchor, constant: 130),
+            createCardButton.trailingAnchor.constraint(equalTo: trailingAnchor, constant: -130),
             createCardButton.heightAnchor.constraint(equalToConstant: 50)
         ])
     }

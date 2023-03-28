@@ -132,6 +132,15 @@ extension CardDecksTableViewController: UITableViewDelegate {
             }
         }
     }
+    
+    func tableView(_ tableView: UITableView, leadingSwipeActionsConfigurationForRowAt indexPath: IndexPath) -> UISwipeActionsConfiguration? {
+        let editAction = UIContextualAction(style: .normal, title: "Edit") { _, _, _ in
+            print("Edit")
+        }
+        editAction.backgroundColor = .systemGreen
+        let configuration = UISwipeActionsConfiguration(actions: [editAction])
+        return configuration
+    }
 }
 
 extension CardDecksTableViewController: CreateCardDeckViewControllerDelegate {

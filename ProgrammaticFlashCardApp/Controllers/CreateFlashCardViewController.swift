@@ -47,6 +47,8 @@ class CreateFlashCardViewController: UIViewController {
         if flashCard != nil {
             createCardView.cardQuestionTextField.text = flashCard?.question
             createCardView.cardAnswerTextView.text = flashCard?.answer
+            createCardView.createCardButton.setTitle("Update", for: .normal)
+            createCardView.titleLabel.text = "update current card"
             updateSaveButtonState()
         }
     }
