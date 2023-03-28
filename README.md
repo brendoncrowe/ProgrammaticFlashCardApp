@@ -11,6 +11,6 @@ The app includes a wide variety of features for the user...
 ## App demonstration 
 
 
-Creating a card deck       |  Creating a flash card
-:-------------------------:|:-------------------------:
+Creating a card deck |  Creating a flash card
+  ---|---
 ![CreatingCardDeck](Assets/CreatingCardDeck.gif)  |  ![](https://...Ocean.png)
