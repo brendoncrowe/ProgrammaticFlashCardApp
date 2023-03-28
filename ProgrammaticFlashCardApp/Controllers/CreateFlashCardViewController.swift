@@ -9,6 +9,7 @@ import UIKit
 
 protocol CreateFlashCardViewControllerDelegate: NSObject {
     func didCreate(_ sender: CreateFlashCardViewController, flashCard: FlashCard)
+    func didUpdate(_ sender: CreateFlashCardViewController, oldFlashCard: FlashCard, newFlashCard: FlashCard)
 }
 
 class CreateFlashCardViewController: UIViewController {
@@ -51,14 +52,25 @@ class CreateFlashCardViewController: UIViewController {
     
     
     @objc private func createButtonTapped(_ sender: UIButton) {
+        if flashCard != nil {
+            updateFlashCard()
+        } else {
+            createFlashCard()
+        }
         dismiss(animated: true)
-        createFlashCard()
     }
     
-
     private func updateSaveButtonState() {
         let cardQuestion = createCardView.cardQuestionTextField.text ?? ""
         createCardView.createCardButton.isEnabled =  !cardQuestion.isEmpty
+    }
+    
+    private func updateFlashCard() {
+        guard let cardQuestion = createCardView.cardQuestionTextField.text,
+              let cardAnswer = createCardView.cardAnswerTextView.text else { return }
+        let flashCard = FlashCard(question: cardQuestion, answer: cardAnswer)
+        delegate?.didUpdate(self, oldFlashCard: self.flashCard!, newFlashCard: flashCard)
+        dismiss(animated: true)
     }
     
     private func createFlashCard() {

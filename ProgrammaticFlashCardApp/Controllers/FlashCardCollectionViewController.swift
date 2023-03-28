@@ -57,6 +57,7 @@ class FlashCardCollectionViewController: UIViewController {
         barButton = UIBarButtonItem(image: UIImage(systemName: "plus"), style: .plain, target: self, action: #selector(addCardButtonPressed))
         navigationItem.rightBarButtonItem = barButton
         cellColor = UserDefaults.standard.object(forKey: UserPreferences.index) as? Int ?? 0
+
     }
     
     @objc private func addCardButtonPressed(_ sender: UIBarButtonItem) {
@@ -147,15 +148,24 @@ extension FlashCardCollectionViewController: UICollectionViewDelegateFlowLayout 
     }
 }
 
-
 extension FlashCardCollectionViewController: CreateFlashCardViewControllerDelegate {
     func didCreate(_ sender: CreateFlashCardViewController, flashCard: FlashCard) {
-        cardDeck.flashCards.append(flashCard)
+        cardDeck.flashCards.insert(flashCard, at: 0)
+        let indexPath = IndexPath(row: 0, section: 0)
+        flashCardView.collectionView.insertItems(at: [indexPath])
+        flashCardView.collectionView.cellForItem(at: indexPath)?.transform = .identity
+        self.delegate?.flashCardWasAdded(self, cardDeck: cardDeck, indexPathRow: self.indexPath)
         flashCardView.collectionView.reloadData()
-        self.delegate?.flashCardWasAdded(self, cardDeck: cardDeck, indexPathRow: indexPath)
+    }
+    
+    func didUpdate(_ sender: CreateFlashCardViewController, oldFlashCard: FlashCard, newFlashCard: FlashCard) {
+        if let card = cardDeck.flashCards.firstIndex(of: oldFlashCard) {
+            cardDeck.flashCards[card] = newFlashCard
+            flashCardView.collectionView.reloadData()
+            self.delegate?.flashCardWasAdded(self, cardDeck: cardDeck, indexPathRow: indexPath)
+        }
     }
 }
-
 
 extension FlashCardCollectionViewController: FlashCardCellDelegate {
     
@@ -177,6 +187,7 @@ extension FlashCardCollectionViewController: FlashCardCellDelegate {
     private func deleteFlashCard(_ card: FlashCard) {
         guard let index = cardDeck.flashCards.firstIndex(of: card) else { return }
         cardDeck.flashCards.remove(at: index)
+        flashCardView.collectionView.deleteItems(at: [IndexPath(item: index, section: 0)])
         flashCardView.collectionView.reloadData()
         delegate?.flashCardWasDeleted(self, cardDeck: cardDeck, indexPathRow: indexPath)
     }

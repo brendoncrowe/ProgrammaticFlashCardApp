@@ -20,7 +20,6 @@ class FlashCardsCollectionView: UIView {
         return cv
     }()
     
-
     override init(frame: CGRect) {
         super.init(frame: frame)
         commonInit()
