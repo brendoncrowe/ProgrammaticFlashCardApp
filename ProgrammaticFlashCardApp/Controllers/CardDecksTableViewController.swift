@@ -72,6 +72,7 @@ class CardDecksTableViewController: UIViewController {
                 sheet.preferredCornerRadius = 24
                 sheet.largestUndimmedDetentIdentifier = .large
             }
+            editCardDeckController.delegate = self
             present(editCardDeckController, animated: true)
         }
     }
@@ -167,7 +168,15 @@ extension CardDecksTableViewController: CreateCardDeckViewControllerDelegate {
             print("Error saving: \(error)")
         }
     }
+    
+    func didUpdate(_ sender: CreateCardDeckViewController, oldCardDeck: CardDeck, newCardDeck: CardDeck) {
+        guard let card = cardDecks.firstIndex(of: oldCardDeck) else { return }
+        cardDecks[card] = newCardDeck
+        dataPersistence.update(oldCardDeck, with: newCardDeck)
+        cardDeckView.tableView.reloadData()
+    }
 }
+
 
 extension CardDecksTableViewController: FlashCardCollectionViewControllerDelegate {
     func flashCardWasAdded(_ sender: FlashCardCollectionViewController, cardDeck: CardDeck, indexPathRow: Int) {

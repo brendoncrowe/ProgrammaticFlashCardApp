@@ -10,6 +10,7 @@ import UIKit
 
 protocol CreateCardDeckViewControllerDelegate: NSObject {
     func didCreate(_ sender: CreateCardDeckViewController, cardDeck: CardDeck)
+    func didUpdate(_ sender: CreateCardDeckViewController, oldCardDeck: CardDeck, newCardDeck: CardDeck)
 }
 
 class CreateCardDeckViewController: UIViewController {
@@ -92,12 +93,15 @@ class CreateCardDeckViewController: UIViewController {
     }
     
     @objc private func createButtonTapped(_ sender: UIButton) {
-        if createButtonIsActive == false {
-            performButtonShakeAnimation(createCardDeckView.createDeckButton)
-            
+        if cardDeck != nil {
+            updateCardDeck()
         } else {
-            createCardDeck()
-            dismiss(animated: true)
+            if createButtonIsActive == false {
+                performButtonShakeAnimation(createCardDeckView.createDeckButton)
+            } else {
+                createCardDeck()
+                dismiss(animated: true)
+            }
         }
     }
     
@@ -113,6 +117,14 @@ class CreateCardDeckViewController: UIViewController {
               let deckDescription = createCardDeckView.deckDescriptionTextField.text else { return }
         let cardDeck = CardDeck(title: deckTitle, description: deckDescription, flashCards: [])
         delegate?.didCreate(self, cardDeck: cardDeck)
+        dismiss(animated: true)
+    }
+    
+    private func updateCardDeck() {
+        guard let deckTitle = createCardDeckView.deckTitleTextField.text,
+              let deckDescription = createCardDeckView.deckDescriptionTextField.text else { return }
+        let cardDeck = CardDeck(title: deckTitle, description: deckDescription, flashCards: cardDeck?.flashCards ?? [])
+        delegate?.didUpdate(self, oldCardDeck: self.cardDeck!, newCardDeck: cardDeck)
         dismiss(animated: true)
     }
 }

@@ -152,7 +152,6 @@ extension FlashCardCollectionViewController: CreateFlashCardViewControllerDelega
     func didCreate(_ sender: CreateFlashCardViewController, flashCard: FlashCard) {
         let indexPath = IndexPath(row: 0, section: 0)
         cardDeck.flashCards.insert(flashCard, at: 0)
-        self.flashCardView.collectionView.cellForItem(at: indexPath)?.transform = CGAffineTransform.identity
         flashCardView.collectionView.insertItems(at: [indexPath])
         flashCardView.collectionView.reloadData()
         self.delegate?.flashCardWasAdded(self, cardDeck: cardDeck, indexPathRow: self.indexPath)
@@ -190,5 +189,7 @@ extension FlashCardCollectionViewController: FlashCardCellDelegate {
         flashCardView.collectionView.deleteItems(at: [IndexPath(item: index, section: 0)])
         flashCardView.collectionView.reloadData()
         delegate?.flashCardWasDeleted(self, cardDeck: cardDeck, indexPathRow: indexPath)
+        
     }
+    
 }
