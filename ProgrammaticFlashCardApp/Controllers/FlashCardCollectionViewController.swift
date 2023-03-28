@@ -30,7 +30,7 @@ class FlashCardCollectionViewController: UIViewController {
     public weak var delegate: FlashCardCollectionViewControllerDelegate?
     private let flashCardView = FlashCardsCollectionView()
     private var barButton: UIBarButtonItem!
-    private var cellColor: Int?
+    private var cellColor: Int!
     public var indexPath: Int!
     
     override func loadView() {
@@ -68,7 +68,7 @@ class FlashCardCollectionViewController: UIViewController {
         if let card = card {
             let viewController = CreateFlashCardViewController(flashCard: card)
             if let sheet = viewController?.sheetPresentationController {
-                sheet.detents = [ .medium()]
+                sheet.detents = [ .medium(), .large()]
                 sheet.prefersGrabberVisible = true
                 sheet.preferredCornerRadius = 24
                 sheet.largestUndimmedDetentIdentifier = .large
@@ -118,7 +118,7 @@ extension FlashCardCollectionViewController: UICollectionViewDataSource {
         cell.layer.cornerRadius = 16
         cell.delegate = self
         cell.configureCell(for: flashcard)
-        cell.backgroundColor = configureCellColor(cellColor!)
+        cell.backgroundColor = configureCellColor(cellColor)
         return cell
     }
 }
@@ -150,12 +150,12 @@ extension FlashCardCollectionViewController: UICollectionViewDelegateFlowLayout 
 
 extension FlashCardCollectionViewController: CreateFlashCardViewControllerDelegate {
     func didCreate(_ sender: CreateFlashCardViewController, flashCard: FlashCard) {
-        cardDeck.flashCards.insert(flashCard, at: 0)
         let indexPath = IndexPath(row: 0, section: 0)
+        cardDeck.flashCards.insert(flashCard, at: 0)
         flashCardView.collectionView.insertItems(at: [indexPath])
         flashCardView.collectionView.cellForItem(at: indexPath)?.transform = .identity
-        self.delegate?.flashCardWasAdded(self, cardDeck: cardDeck, indexPathRow: self.indexPath)
         flashCardView.collectionView.reloadData()
+        self.delegate?.flashCardWasAdded(self, cardDeck: cardDeck, indexPathRow: self.indexPath)
     }
     
     func didUpdate(_ sender: CreateFlashCardViewController, oldFlashCard: FlashCard, newFlashCard: FlashCard) {

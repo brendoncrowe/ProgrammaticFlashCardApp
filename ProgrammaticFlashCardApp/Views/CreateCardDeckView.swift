@@ -42,9 +42,9 @@ class CreateCardDeckView: UIView {
         button.translatesAutoresizingMaskIntoConstraints = false
         button.setTitle("Create Deck", for: .normal)
         button.setTitleColor(.white, for: .normal)
-        button.titleLabel?.font = UIFont.preferredFont(forTextStyle: .body)
+        button.titleLabel?.font = UIFont.preferredFont(forTextStyle: .title3)
         button.backgroundColor = .systemBlue
-        button.layer.cornerRadius = 20
+        button.layer.cornerRadius = 24
         return button
     }()
     
@@ -96,11 +96,11 @@ class CreateCardDeckView: UIView {
     private func setButtonLayoutConstraints() {
         addSubview(createDeckButton)
         NSLayoutConstraint.activate([
-            createDeckButton.topAnchor.constraint(equalTo: deckDescriptionTextField.bottomAnchor, constant: 40),
+            createDeckButton.topAnchor.constraint(equalTo: deckDescriptionTextField.bottomAnchor, constant: 20),
             createDeckButton.centerXAnchor.constraint(equalTo: centerXAnchor),
             createDeckButton.leadingAnchor.constraint(equalTo: leadingAnchor, constant: 120),
             createDeckButton.trailingAnchor.constraint(equalTo: trailingAnchor, constant: -120),
-            createDeckButton.heightAnchor.constraint(equalToConstant: 40)
+            createDeckButton.heightAnchor.constraint(equalToConstant: 50)
         ])
     }
 }

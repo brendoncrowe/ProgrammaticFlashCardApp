@@ -44,7 +44,6 @@ class SettingsView: UIView {
     override func layoutSubviews() {
         super.layoutSubviews()
         colorView.layer.cornerRadius = 16
-        configureColorViewBackgroundColor(colorSegmentControl.selectedSegmentIndex)
     }
 
     override init(frame: CGRect) {
@@ -61,6 +60,7 @@ class SettingsView: UIView {
         setLabelConstraints()
         setColorViewConstraints()
         setSegmentControlConstraints()
+        configureColorViewBackgroundColor(colorSegmentControl.selectedSegmentIndex)
     }
     
     private func setLabelConstraints() {

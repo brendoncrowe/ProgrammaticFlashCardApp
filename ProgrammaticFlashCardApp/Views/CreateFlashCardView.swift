@@ -43,9 +43,9 @@ class CreateFlashCardView: UIView {
         button.translatesAutoresizingMaskIntoConstraints = false
         button.setTitle("Create Card", for: .normal)
         button.setTitleColor(.white, for: .normal)
-        button.titleLabel?.font = UIFont.preferredFont(forTextStyle: .body)
+        button.titleLabel?.font = UIFont.preferredFont(forTextStyle: .title3)
         button.backgroundColor = .systemBlue
-        button.layer.cornerRadius = 20
+        button.layer.cornerRadius = 24
         return button
     }()
     
@@ -98,11 +98,11 @@ class CreateFlashCardView: UIView {
     private func setButtonLayoutConstraints() {
         addSubview(createCardButton)
         NSLayoutConstraint.activate([
-            createCardButton.topAnchor.constraint(equalTo: cardAnswerTextView.bottomAnchor, constant: 40),
+            createCardButton.topAnchor.constraint(equalTo: cardAnswerTextView.bottomAnchor, constant: 20),
             createCardButton.centerXAnchor.constraint(equalTo: centerXAnchor),
             createCardButton.leadingAnchor.constraint(equalTo: leadingAnchor, constant: 120),
             createCardButton.trailingAnchor.constraint(equalTo: trailingAnchor, constant: -120),
-            createCardButton.heightAnchor.constraint(equalToConstant: 40)
+            createCardButton.heightAnchor.constraint(equalToConstant: 50)
         ])
     }
 }

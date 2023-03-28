@@ -17,7 +17,8 @@ class CreateFlashCardViewController: UIViewController {
     private var createCardView = CreateFlashCardView()
     public weak var delegate: CreateFlashCardViewControllerDelegate?
     private var flashCard: FlashCard?
-
+    private var createButtonIsActive = false
+    
     override func loadView() {
         super.loadView()
         view = createCardView
@@ -50,19 +51,20 @@ class CreateFlashCardViewController: UIViewController {
         }
     }
     
-    
     @objc private func createButtonTapped(_ sender: UIButton) {
         if flashCard != nil {
             updateFlashCard()
+            dismiss(animated: true)
         } else {
             createFlashCard()
         }
-        dismiss(animated: true)
     }
     
     private func updateSaveButtonState() {
         let cardQuestion = createCardView.cardQuestionTextField.text ?? ""
-        createCardView.createCardButton.isEnabled =  !cardQuestion.isEmpty
+        if !cardQuestion.isEmpty {
+            createButtonIsActive = true
+        }
     }
     
     private func updateFlashCard() {
@@ -74,11 +76,51 @@ class CreateFlashCardViewController: UIViewController {
     }
     
     private func createFlashCard() {
-        guard let cardQuestion = createCardView.cardQuestionTextField.text,
-              let cardAnswer = createCardView.cardAnswerTextView.text else { return }
+        guard let cardQuestion = createCardView.cardQuestionTextField.text, !cardQuestion.isEmpty,
+              let cardAnswer = createCardView.cardAnswerTextView.text else {
+            performButtonShakeAnimation(createCardView.createCardButton)
+            return
+            
+        }
         let flashCard = FlashCard(question: cardQuestion, answer: cardAnswer)
         delegate?.didCreate(self, flashCard: flashCard)
         dismiss(animated: true)
+    }
+    
+    private func performButtonShakeAnimation(_ button: UIButton) {
+        UIView.animateKeyframes(withDuration: 0.3, delay: 0, options: [], animations: {
+            UIView.addKeyframe(withRelativeStartTime: 0, relativeDuration: 0.1) {
+                button.transform = CGAffineTransform(translationX: 20, y: 0)
+            }
+            UIView.addKeyframe(withRelativeStartTime: 0.1, relativeDuration: 0.1) {
+                button.transform = CGAffineTransform(translationX: 0, y: 0)
+            }
+            UIView.addKeyframe(withRelativeStartTime: 0.2, relativeDuration: 0.1) {
+                button.transform = CGAffineTransform(translationX: -20, y: 0)
+            }
+            UIView.addKeyframe(withRelativeStartTime: 0.3, relativeDuration: 0.1) {
+                button.transform = CGAffineTransform(translationX: 0, y: 0)
+            }
+            UIView.addKeyframe(withRelativeStartTime: 0.4, relativeDuration: 0.1) {
+                button.transform = CGAffineTransform(translationX: 20, y: 0)
+            }
+            UIView.addKeyframe(withRelativeStartTime: 0.5, relativeDuration: 0.1) {
+                button.transform = CGAffineTransform(translationX: 0, y: 0)
+            }
+            UIView.addKeyframe(withRelativeStartTime: 0.6, relativeDuration: 0.1) {
+                button.transform = CGAffineTransform(translationX: -20, y: 0)
+            }
+            UIView.addKeyframe(withRelativeStartTime: 0.7, relativeDuration: 0.1) {
+                button.transform = CGAffineTransform(translationX: 0, y: 0)
+            }
+            UIView.addKeyframe(withRelativeStartTime: 0.8, relativeDuration: 0.1) {
+                button.transform = CGAffineTransform(translationX: 20, y: 0)
+            }
+            UIView.addKeyframe(withRelativeStartTime: 0.9, relativeDuration: 0.1) {
+                button.transform = CGAffineTransform(translationX: 0, y: 0)
+            }
+            
+        })
     }
 }
 
