@@ -17,9 +17,17 @@ class CreateCardDeckViewController: UIViewController {
     private var createCardDeckView = CreateCardDeckView()
     public weak var delegate: CreateCardDeckViewControllerDelegate?
     private var createButtonIsActive = false
+    private var cardDeck: CardDeck?
     
+    init?(_ cardDeck: CardDeck?) {
+        self.cardDeck = cardDeck
+        super.init(nibName: nil, bundle: nil)
+    }
     
-    
+    required init?(coder: NSCoder) {
+        fatalError("init(coder:) has not been implemented")
+    }
+
     override func loadView() {
         super.loadView()
         view = createCardDeckView
@@ -33,10 +41,21 @@ class CreateCardDeckViewController: UIViewController {
         createCardDeckView.deckDescriptionTextField.delegate = self
         createCardDeckView.deckTitleTextField.delegate = self
         updateSaveButtonState()
-        
+        configureUI()
     }
     
-    func performButtonShakeAnimation(_ button: UIButton) {
+    private func configureUI() {
+        if cardDeck != nil {
+            createCardDeckView.deckTitleTextField.text = cardDeck?.title
+            createCardDeckView.deckDescriptionTextField.text = cardDeck?.description
+            createCardDeckView.createDeckButton.setTitle("Update", for: .normal)
+            createCardDeckView.titleLabel.text = "update current deck"
+            updateSaveButtonState()
+        }
+    }
+
+    
+    private func performButtonShakeAnimation(_ button: UIButton) {
         UIView.animateKeyframes(withDuration: 0.3, delay: 0, options: [], animations: {
             UIView.addKeyframe(withRelativeStartTime: 0, relativeDuration: 0.1) {
                 button.transform = CGAffineTransform(translationX: 20, y: 0)

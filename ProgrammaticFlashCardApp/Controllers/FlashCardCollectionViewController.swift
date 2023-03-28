@@ -57,7 +57,7 @@ class FlashCardCollectionViewController: UIViewController {
         barButton = UIBarButtonItem(image: UIImage(systemName: "plus"), style: .plain, target: self, action: #selector(addCardButtonPressed))
         navigationItem.rightBarButtonItem = barButton
         cellColor = UserDefaults.standard.object(forKey: UserPreferences.index) as? Int ?? 0
-
+        
     }
     
     @objc private func addCardButtonPressed(_ sender: UIBarButtonItem) {
@@ -152,8 +152,8 @@ extension FlashCardCollectionViewController: CreateFlashCardViewControllerDelega
     func didCreate(_ sender: CreateFlashCardViewController, flashCard: FlashCard) {
         let indexPath = IndexPath(row: 0, section: 0)
         cardDeck.flashCards.insert(flashCard, at: 0)
+        self.flashCardView.collectionView.cellForItem(at: indexPath)?.transform = CGAffineTransform.identity
         flashCardView.collectionView.insertItems(at: [indexPath])
-        flashCardView.collectionView.cellForItem(at: indexPath)?.transform = .identity
         flashCardView.collectionView.reloadData()
         self.delegate?.flashCardWasAdded(self, cardDeck: cardDeck, indexPathRow: self.indexPath)
     }

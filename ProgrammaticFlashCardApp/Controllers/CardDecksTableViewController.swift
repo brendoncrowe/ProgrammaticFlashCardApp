@@ -55,34 +55,48 @@ class CardDecksTableViewController: UIViewController {
     }
     
     @objc private func settingsButtonPressed(_ sender: UIBarButtonItem) {
-        presentViewController(for: sender)
+        presentNavControllerController(for: sender)
     }
     
     @objc private func addCardDeckButtonPressed(_ sender: UIBarButtonItem) {
-        presentViewController(for: sender)
+        presentNavControllerController(for: sender)
     }
     
-    private func presentViewController(for sender: UIBarButtonItem) {
+    
+    private func editCardDeck(_ cardDeck: CardDeck?) {
+        if let cardDeck = cardDeck {
+            guard let editCardDeckController = CreateCardDeckViewController(cardDeck) else { return }
+            if let sheet = editCardDeckController.sheetPresentationController {
+                sheet.detents = [ .medium()]
+                sheet.prefersGrabberVisible = true
+                sheet.preferredCornerRadius = 24
+                sheet.largestUndimmedDetentIdentifier = .large
+            }
+            present(editCardDeckController, animated: true)
+        }
+    }
+    
+    private func presentNavControllerController(for sender: UIBarButtonItem) {
         switch sender.tag {
         case 0:
-            let viewController = CreateCardDeckViewController()
-            if let sheet = viewController.sheetPresentationController {
+            guard let createCardDeckController = CreateCardDeckViewController(nil) else { return }
+            if let sheet = createCardDeckController.sheetPresentationController {
                 sheet.detents = [ .medium()]
                 sheet.prefersGrabberVisible = true
                 sheet.preferredCornerRadius = 24
                 sheet.largestUndimmedDetentIdentifier = .large
             }
-            viewController.delegate = self
-            present(viewController, animated: true)
+            createCardDeckController.delegate = self
+            present(createCardDeckController, animated: true)
         case 1:
-            let viewController = SettingsViewController()
-            if let sheet = viewController.sheetPresentationController {
+            let settingsController = SettingsViewController()
+            if let sheet = settingsController.sheetPresentationController {
                 sheet.detents = [ .medium()]
                 sheet.prefersGrabberVisible = true
                 sheet.preferredCornerRadius = 24
                 sheet.largestUndimmedDetentIdentifier = .large
             }
-            present(viewController, animated: true)
+            present(settingsController, animated: true)
         default:
             return
         }
@@ -134,10 +148,11 @@ extension CardDecksTableViewController: UITableViewDelegate {
     }
     
     func tableView(_ tableView: UITableView, leadingSwipeActionsConfigurationForRowAt indexPath: IndexPath) -> UISwipeActionsConfiguration? {
-        let editAction = UIContextualAction(style: .normal, title: "Edit") { _, _, _ in
-            print("Edit")
+        let cardDeck = cardDecks[indexPath.row]
+        let editAction = UIContextualAction(style: .normal, title: "Edit") { [weak self] _, _, _ in
+            self?.editCardDeck(cardDeck)
         }
-        editAction.backgroundColor = .systemGreen
+        editAction.backgroundColor = .systemBlue
         let configuration = UISwipeActionsConfiguration(actions: [editAction])
         return configuration
     }
