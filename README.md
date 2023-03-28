@@ -11,6 +11,9 @@ The app includes a wide variety of features for the user...
 ## App demonstration 
 
 
-Creating a card deck |  Creating a flash card
-  ---|---
-![CreatingCardDeck](Assets/CreatingCardDeck.gif)  |  ![CreatingFlashCard](Assets/CreatingFlashCard.gif)
+Creating a card deck |  Creating a flash card | Changing flash card color
+  ---|---|---
+![CreatingCardDeck](Assets/CreatingCardDeck.gif) | ![CreatingFlashCard](Assets/CreatingFlashCard.gif) | ![ChangingCardColor](Assets/ChangeColor.gif)
+
+
+
