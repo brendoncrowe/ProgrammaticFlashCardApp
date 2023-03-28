@@ -7,6 +7,7 @@ The app includes a wide variety of features for the user...
 2. An empty state indicating that nothing is saved both in the card decks table view as well as the falshcards collection view 
 3. system colors allowing for dark mode compatability 
 4. The ability to save a prefered flashcard color
+5. Ability to edit already created decks and cards
 
 ## App demonstration 
 
