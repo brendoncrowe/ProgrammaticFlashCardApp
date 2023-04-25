@@ -12,7 +12,6 @@ protocol FlashCardCellDelegate: AnyObject {
 }
 
 
-
 class FlashCardCell: UICollectionViewCell {
     
     // step 2: custom protocol

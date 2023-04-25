@@ -22,7 +22,7 @@ class CreateFlashCardView: UIView {
         let tf = UITextField()
         tf.translatesAutoresizingMaskIntoConstraints = false
         tf.borderStyle = .roundedRect
-        tf.backgroundColor = .systemBackground
+        tf.backgroundColor = .systemGray6
         tf.font = UIFont.preferredFont(forTextStyle: .body)
         tf.placeholder = "enter card title"
         return tf
@@ -64,6 +64,8 @@ class CreateFlashCardView: UIView {
         setCardQuestionTextFieldConstraints()
         setCardAnswerTextViewConstraints()
         setButtonLayoutConstraints()
+        UITextView.appearance(whenContainedInInstancesOf: [UIPresentationController.self]).backgroundColor = .systemGray6
+
     }
     
     private func setTitleLabelConstraints() {

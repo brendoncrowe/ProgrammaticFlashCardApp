@@ -23,6 +23,7 @@ class CreateCardDeckView: UIView {
         tf.translatesAutoresizingMaskIntoConstraints = false
         tf.font = UIFont.preferredFont(forTextStyle: .body)
         tf.borderStyle = .roundedRect
+        tf.backgroundColor = .systemGray6
         tf.placeholder = "enter deck title"
         return tf
     }()
@@ -32,6 +33,7 @@ class CreateCardDeckView: UIView {
         tf.translatesAutoresizingMaskIntoConstraints = false
         tf.font = UIFont.preferredFont(forTextStyle: .body)
         tf.borderStyle = .roundedRect
+        tf.backgroundColor = .systemGray6
         tf.placeholder = "enter deck description"
         return tf
     }()
